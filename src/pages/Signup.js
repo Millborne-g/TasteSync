@@ -15,7 +15,7 @@ import Loader from '../components/Loader';
 function Signup() {
     const cookies = new Cookies();
     // const [userID, setUserID] = useState('');
-    const [userID, setUserID] = useState(cookies.get('jwt_autorization'));
+    const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
     const [email, setEmail] = useState(''); 
     const inputUserEmailElement = typeof document !== 'undefined' ? document.querySelector('.inputUserEmail') : null;
     const [name, setName] = useState("");
@@ -103,6 +103,7 @@ function Signup() {
               });
               cookies.set("jwt_autorization",uuid+nameSplit);
               cookies.set("userEmail",email);
+              localStorage.setItem("jwt_autorization",uuid+nameSplit);
               // sessionStorage.setItem('signedOut', 'false');
               setSignUpLoader(false);
               // setSignUpSuccessfulModal(true);
@@ -157,7 +158,6 @@ function Signup() {
       const uuid = uid();
       let idTemp = '';
       let emailExist = false;
-      console.log('nilabay ko dari')
       // if(fName !== '' && lName !== ''){
       //   setName(fName+' '+lName);
       // }
@@ -201,6 +201,7 @@ function Signup() {
               // localStorage.setItem('userID', uuid+nameSplit);
               cookies.set("jwt_autorization",uuid+nameSplit);
               cookies.set("userEmail",email);
+              localStorage.setItem("jwt_autorization",uuid+nameSplit);
               setUserID(cookies.get('userEmail'));
               
             }, 3000);
@@ -217,6 +218,7 @@ function Signup() {
             setSignUpLoader(true);
             cookies.set("jwt_autorization",uuid+nameSplit);
             cookies.set("userEmail",email);
+            localStorage.setItem("jwt_autorization",uuid+nameSplit);
             // setTimeout(() =>{
             //   localStorage.setItem('userID', idTemp);
             //   setUserID(localStorage.getItem('userID')??'');

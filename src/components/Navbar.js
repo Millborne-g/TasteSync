@@ -8,7 +8,7 @@ import Cookies from 'universal-cookie';
 
 function Navbar() {
   const cookies = new Cookies();
-  const [userID, setUserID] = useState(cookies.get('jwt_autorization'));
+  const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
   const [userName, setUserName] = useState('');
   const [userImage, setUserImage] = useState('');
 
@@ -57,9 +57,9 @@ function Navbar() {
                             <span className='userNameDashboardNavbar'>{userName}</span>
                           </a>
                           <ul className="dropdown-menu">
-                            <li><a className="dropdown-item" href="#">Profile</a></li>
+                            <li><a className="dropdown-item" href={`/${userID}`}>Profile</a></li>
                             <hr className="dropdown-divider"/>
-                            <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); window.open('http://localhost:3000/', '_self');}}>Logout</a></li>
+                            <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</a></li>
                           </ul>
                         </li>
                       </>

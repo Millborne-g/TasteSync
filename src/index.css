@@ -351,6 +351,7 @@ code {
 
 .form-control{
   font-family:'Poppins';
+  margin-bottom: 10px;
 }
 
 /* Login */
@@ -778,6 +779,7 @@ code {
 /* Recipes */
 .RecipeDashboardContainer{
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
@@ -894,8 +896,104 @@ code {
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
 }
 
+.recipeIngredientsDashboard{
+  /* border-bottom: 0.5px solid #bdbdbd; */
+  margin: 10px 0 10px 0;
+}
+
 .viewMoreContainer{
   display: flex;
   justify-content: center;
 }
 /* end Recipe Modal */
+
+/* Profile */
+.dashboardProfile{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 50px;
+ }
+
+ .dashboardProfile-inner{
+ }
+
+.socialLinkDivider{
+  width: 100%;
+  border-bottom: 0.5px solid #8b8b8b;
+  margin-bottom: 20px;
+}
+
+.socialLinkLabel{
+  display: flex;
+  align-items: center;
+  /* padding: 5px 0; */
+  /* background-color: aqua; */
+  cursor: pointer;
+}
+
+.socialLinkLabel-inner{
+  /* background-color: rgb(51, 255, 0); */
+  height: 100%;
+  padding: 5px;
+}
+
+.socialLinkLabelImage{
+  width: 17px;
+  height: 17px;
+  margin-right: 10px;
+}
+
+.socialLinkLabelText{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #000000;
+}
+
+/* Active */
+
+.likedInnerActive.active{
+  /* background-color: rgb(51, 255, 0); */
+  border-bottom: 4px solid #0066FF;
+}
+
+.likedTextActive.active{
+  color: #0066FF;
+}
+
+.recommInnerActive.active{
+  /* background-color: rgb(51, 255, 0); */
+  border-bottom: 4px solid #0066FF;
+}
+
+.recommTextActive.active{
+  color: #0066FF;
+}
+
+/* end Active */
+
+/* recipe recommendation */
+.totalCreateContainer{
+  /* background-color: #F9ED32; */
+  width: 100%;
+  margin-bottom: 1%;
+  /* height: 100px; */
+}
+
+.totalCreateContainer-inner{
+  width: 100%;
+}
+
+
+.createLinkBtn{
+  height: 50px;
+  float: right;
+}
+/* end of recipe recommendation*/
+
+
+/* end Profile */

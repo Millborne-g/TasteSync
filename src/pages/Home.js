@@ -9,7 +9,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import Navbar from '../components/Navbar';
 import PeopleMealPlanStory from '../components/PeopleMealPlanStory';
-import Recipe from '../components/Recipe';
+import RecipeList from '../components/RecipeList';
 import { Dropdown, Button, Modal  } from 'react-bootstrap';
 import {db} from '../firebase';
 import {uid} from 'uid'; 
@@ -17,16 +17,17 @@ import { onValue, ref, remove, set, update } from 'firebase/database';
 
 function Home() {
     const cookies = new Cookies();
-    const [userID, setUserID] = useState(cookies.get('jwt_autorization'));
+    const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
     const [searchInput, setSearchInput] = useState('');
     const [recipeImageDashboard, setRecipeImageDashboard] = useState('');
     const [recipeNameDashboard, setRecipeNameDashboard] = useState('');
     const [recipeAuthorDashboard, setRecipeAuthorDashboard] = useState('');
     const [recipeIngredientsDashboard, setRecipeIngredientsDashboard] = useState([]);
+    const [recipeHealthBenifitsDashboard, setRecipeHealthBenifitsDashboard] = useState([]);
     const [recipeIdLinkDashboard, setRecipeIdLinkDashboard] = useState('');
     const [recipeURLDashboard, setRecipeURLDashboard] = useState('');
     const [showRecipeModal, setShowRecipeModal] = useState(false);
-    const [clickLike, setClickLike] = useState(false)
+    const [clickLike, setClickLike] = useState(false);
 
     const handleRecipeClose = () => {
         setShowRecipeModal(false);
@@ -45,6 +46,7 @@ function Home() {
             set(ref(db, `userLikedRecipe/${userID}/${likedRecipeId}`), {
                 likedRecipeId,
                 recipeNameDashboard,
+                recipeIdLinkDashboard
             });
         } else{
             remove(ref(db, `userLikedRecipe/${userID}/${likedRecipeId}`));
@@ -107,7 +109,7 @@ function Home() {
                 </div>
             </div>
             
-            <Recipe searchInput={searchInput} setRecipeNameDashboard={setRecipeNameDashboard} handleRecipeShow={handleRecipeShow} setRecipeImageDashboard={setRecipeImageDashboard} setRecipeAuthorDashboard={setRecipeAuthorDashboard} setRecipeIngredientsDashboard={setRecipeIngredientsDashboard} setRecipeIdLinkDashboard={setRecipeIdLinkDashboard} setRecipeURLDashboard={setRecipeURLDashboard}/>
+            <RecipeList searchInput={searchInput} setRecipeNameDashboard={setRecipeNameDashboard} handleRecipeShow={handleRecipeShow} setRecipeImageDashboard={setRecipeImageDashboard} setRecipeAuthorDashboard={setRecipeAuthorDashboard} setRecipeIngredientsDashboard={setRecipeIngredientsDashboard} setRecipeIdLinkDashboard={setRecipeIdLinkDashboard} setRecipeURLDashboard={setRecipeURLDashboard} setRecipeHealthBenifitsDashboard={setRecipeHealthBenifitsDashboard}/>
 
             
             
@@ -142,7 +144,17 @@ function Home() {
                     <br />
                     {recipeIngredientsDashboard.map((element, index)=>(
                         <div key={index}>
-                            <span className='ingredientList'>•{element}</span> <br />
+                            <span className='ingredientList'>• {element}</span> <br />
+                        </div>
+                    ))}
+                </div>
+
+                <div className='recipeIngredientsDashboard'>
+                    <span className='recipeName'>Dietary Labels and Restrictions:</span>
+                    <br />
+                    {recipeHealthBenifitsDashboard.map((element, index)=>(
+                        <div key={index}>
+                            <span className='ingredientList'>• {element}</span> <br />
                         </div>
                     ))}
 

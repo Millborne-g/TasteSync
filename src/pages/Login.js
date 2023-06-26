@@ -14,7 +14,7 @@ import Cookies from 'universal-cookie';
 
 function Login() {
     const cookies = new Cookies();
-    const [userID, setUserID] = useState(cookies.get('jwt_autorization'));
+    const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
     const [email, setEmail] = useState('');
     const [clickSignIn, setClickSignIn] = useState(false);
     const [password, setPassword] = useState('');
@@ -98,12 +98,11 @@ function Login() {
                     setTimeout(() => {
                         console.log('yeeey sulod naka');
                         console.log('mao ning id '+ idTemp);
-                        
                         setSignInLoader(false);
                         cookies.set("jwt_autorization",idTemp);
                         cookies.set("userEmail",email);
+                        localStorage.setItem("jwt_autorization",idTemp);
                         window.open('http://localhost:3000/', '_self');
-                        
                         
                     },3000);
                 } 
@@ -173,6 +172,7 @@ function Login() {
                         console.log('mao ning id '+ idTemp);
                         cookies.set("jwt_autorization",idTemp);
                         cookies.set("userEmail",email);
+                        localStorage.setItem("jwt_autorization",idTemp)
                         // window.location.href = 'http://localhost:3000/';
                         window.open('http://localhost:3000/', '_self');
                         // setSignInLoader(false);
@@ -220,6 +220,7 @@ function Login() {
 
     const logInWithGoogle = () =>{
         setEmail('');
+        setPassword('');
         getInfoGoogle();
     }
   return (
@@ -244,12 +245,12 @@ function Login() {
             <div className="card logInCard">
                 <div className="card-body">
                     <div className="login-container">
-                        <span className='loginContainerText'>Welcome to NutriChef</span>
+                        <span className='loginContainerText'>Welcome to NutriPlan</span>
                     </div>
                     <form onSubmit={(e)=>{login(e)}}>
                         <div className="form-group textFields">
                             <label htmlFor="inputEmail" className='logInLabel'>Email address</label>
-                            <input type="email" className="form-control inputUserEmail" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);}} required/>
+                            <input type="email" className="form-control inputUserEmail" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value); inputEmailElement?.classList.remove('is-invalid'); setShowToast(false);}} required/>
                             
                         </div>
                         <div className="form-group textFields">
