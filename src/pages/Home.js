@@ -84,6 +84,10 @@ function Home() {
                 <PeopleMealPlanStory />
                 <PeopleMealPlanStory />
                 <PeopleMealPlanStory />
+                <PeopleMealPlanStory />
+                <PeopleMealPlanStory />
+                <PeopleMealPlanStory />
+                <PeopleMealPlanStory />
             </div>
             <div className="navbarRecipesDashboard">
                 <div className='navbarRecipesDashboard-inner'>
