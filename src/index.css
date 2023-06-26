@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +10,870 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
 }
+
+/* Navbar */
+.navbar{
+  background: #FFFFFF;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  font-family: 'Poppins';
+}
+
+.logoImg{
+  margin-right: 10px;
+}
+
+.logoName{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+
+  color: #000000;
+}
+
+.nav-item{
+  margin-left: 10px;
+}
+
+.navlogin{
+  text-decoration: none;
+  color: #000000;
+}
+
+.navSignUp{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.userImageProfileNavbar{
+  width: 40px;
+  height: 40x;
+  border-radius: 10px;
+  border: 0.5px solid #c8c8c8;
+  margin-right: 10px;
+}
+
+.userNameDashboardNavbar{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 23px;
+}
+/* end Navbar */
+
+
+/* Loader */
+
+.popup{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* transition: 5s ease-in-out; */
+  z-index: 2;
+}
+
+.popup-inner{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-bg{
+  position: absolute;
+  
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+
+}
+
+.loader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0px 4px 100px rgba(0, 0, 0, 0.25);
+}
+
+/* end Loader */
+
+
+/* Hero section */
+.hero{
+  /* background-color: aqua; */
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(214, 218, 228, 0) 0%, rgba(214, 218, 228, 0.2) 100%);
+  position: relative;
+}
+
+.hero-inner{
+  /* background-color: antiquewhite; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.headline-inner-row {
+  width: 100%;
+  height: 100%;
+}
+
+.heroHeadlines{
+  display: flex;
+  align-items: center;
+}
+
+.heroHeadlinesInner{
+  display: flex;
+  flex-direction: column;
+}
+
+.headline{
+  color: #333;
+  font-size: 60px;
+  line-height: 79px;
+  font-family: 'Poppins';
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+
+.headline .headlineHighlight {
+  color: #EB5757;
+}
+
+.subHeadline{
+  color: #000000; 
+
+  font-size: 18px;
+  font-family: 'Poppins';
+  font-weight: 500;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+.buttonContainer{
+  width:100%;
+  /* background-color: #0066FF; */
+}
+
+.getStartedBtn{
+  width: 186px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #EB5757;
+  border-radius: 50px;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: 'Poppins';
+}
+
+.getStartedBtn:hover{
+  cursor: pointer;
+  background-color: #de2b2b;
+  transition: .3s ease-in-out;
+}
+
+.heroImageContainer {
+  /* border: 1px solid #000000; */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.heroImage{
+  height: 600px;
+}
+
+.footer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  padding: 0.8% 0;
+  
+  /* background-color: #0066FF; */
+}
+
+.footer span{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  color: #000000;
+  text-align: center;
+}
+
+.footer span a{
+  color: #000000;
+  text-decoration: none;
+ }
+
+ .footer span a:hover{
+  color: #EB5757;
+ }
+
+
+/* end Hero section */
+
+/* Dashboard */
+.dashboard{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 50px;
+ }
+
+ .dashboard-inner{
+ }
+
+.navbarMealPlanDashboard{
+  /* background-color: #0B63F8; */
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  /* background-color: #0066FF; */
+  height: 90px;
+  /* justify-content: center; */
+  margin-top: 80px;
+  /* margin-bottom: 2%; */
+}
+
+.headerMealPlanRecipe{
+  color: #333;
+  font-size: 36px;
+  font-family: 'Poppins';
+  font-weight: 700;
+  line-height: 60px;
+}
+
+.highlightMealPlanRecipe{
+  color: #EB5757;
+}
+
+.navbarRecipesDashboard{
+    display: flex;
+    align-items: center;
+    
+    height: 90px;
+    margin-top: 30px;
+    /* background-color: #44C4A1; */
+    width: 100%;
+
+    border-top: 0.5px solid #dedede;
+}
+
+.navbarRecipesDashboard-inner{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.searchBarDashboard{
+  /* flex: 1.6; */
+  /* background-color: #F9ED32; */
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.searhbarForm{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+  /* background-color: #F9ED32; */
+  /* padding: 0 2%; */
+  /* margin-left: -15px; */
+}
+
+.searhInput{
+  background: #FFFFFF;
+  height: 100%;
+  border: 1.5px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  margin-left: -45px;
+}
+
+.btnDividerContainer{
+  height: 100%;
+  width: 5px;
+  margin-left: -45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color: #0066FF; */
+}
+
+.btnDivider{
+  height: 70%;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  /* transform: rotate(90deg); */
+}
+
+.searhBtn{
+  height: 100%;
+  margin-left: -43px;
+
+}
+
+/* end Dashboard */
+
+.form-control{
+  font-family:'Poppins';
+}
+
+/* Login */
+
+.logInCard{
+  padding: 40px 35px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+  width: 450px;
+}
+
+.navbarLogin{
+  padding: 40px 0;
+  margin-bottom: 55px;
+  background-color: #ffff;
+}
+
+.logoImg{
+  height: 50px;
+}
+
+.loginCointainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 55px;
+}
+
+.login-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.logInLabel{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+
+  color: #5A5A5D;
+  margin-bottom: 3px;
+}
+
+.loginContainerText{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 100%;
+  /* identical to box height, or 28px */
+
+  display: flex;
+  align-items: center;
+
+  /* text/primary */
+
+  color: #101012;
+}
+
+.textFields{
+  width: 100%;
+  margin-bottom: 13px;
+}
+
+
+.logInPageBtn{
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.googleIcon{
+  height: 15px;
+  margin-right: 5px;
+}
+
+.dontHaveAnAccount-container{
+  display: flex;
+  justify-content: center;
+}
+
+.dontHaveAnAccount-text{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  /* identical to box height, or 17px */
+
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+
+  /* text/tertiary */
+
+  color: #BEBEBF;
+
+
+}
+
+.dontHaveAnAccount-logIntext{
+  text-decoration: none;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+
+  margin-left: 5px;
+  /* text/tertiary */
+}
+
+/* end Login */
+
+/* SignUp */
+.signUpContainer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 20px;
+  /* background-color: #44C4A1; */
+}
+
+.signUpContainer-inner{
+  width: 400px;
+  position: relative;
+  /* background-color: #D83742; */
+  /* height: 100px; */
+}
+
+.logoSignup-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-signup{
+  margin-bottom: 30px;
+}
+
+.createAnAccount-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.createAnAccount{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 100%;
+  /* identical to box height, or 28px */
+
+  display: flex;
+  align-items: center;
+
+  /* text/primary */
+
+  color: #101012;
+}
+
+.signUpLabel{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+
+  color: #5A5A5D;
+  margin-bottom: 3px;
+}
+
+.textFieldsSignUp{
+  margin-bottom: 13px;
+}
+
+.invalid-confirm-password{
+  width: 100%;
+  text-align: center;
+  background-color: #D83742;
+  color: #ffff;
+  border-radius: 5px;
+  margin-top: 2px;
+}
+
+.signUpPageBtn{
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.googleIcon{
+  height: 15px;
+  margin-right: 5px;
+}
+
+.alreadyHaveAnAccount-container{
+  display: flex;
+  justify-content: center;
+}
+
+.alreadyHaveAnAccount-text{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+  /* identical to box height, or 17px */
+
+  display: flex;
+  align-items: center;
+  text-transform: capitalize;
+
+  /* text/tertiary */
+
+  color: #BEBEBF;
+
+
+}
+
+.alreadyHaveAnAccount-logIntext{
+  text-decoration: none;
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 100%;
+
+  margin-left: 5px;
+  /* text/tertiary */
+}
+
+.popup{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* transition: 5s ease-in-out; */
+}
+
+.popup-inner{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-bg{
+  position: absolute;
+  
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.2);
+
+}
+
+.loader{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  box-shadow: 0px 4px 100px rgba(0, 0, 0, 0.25);
+}
+
+.success{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 2% 3%;
+  box-shadow: 0px 4px 100px rgba(0, 0, 0, 0.25);
+}
+
+.successIcon{
+  width: 79px;
+  height: 79px;
+  margin-bottom: 20px;
+}
+
+.congratulationsText {
+  margin-bottom: 20px;
+}
+
+.congratulationsText span {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+
+  color: #44C4A1;
+}
+
+.thankYouText {
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 23px;
+  text-align: center;
+
+  color: #000000;
+}
+
+.socialHubText{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+
+  color: #000000;
+}
+
+/* end SignUp */
+
+/* PeopleMealPlanStory */
+.peoplesMealPlanContainer{
+  display: flex;
+  /* background-color: #44C4A1; */
+  /* overflow: hidden; */
+}
+
+.mealPlanStoryContainer{
+  transition: 0.3s ease-in-out;
+  width: 249px;
+  height: 263px;
+  border-radius: 10px;
+  /* box-shadow: 4px 4px 18px 0px rgba(156, 160, 172, 0.80); */
+  position: relative;
+  overflow: hidden;
+  margin-right: 15px;
+}
+
+.mealPlanStoryContainer:hover{
+  cursor: pointer;
+  box-shadow: 4px 4px 18px 0px rgba(49, 49, 51, 0.8);
+  transition: 0.3s ease-in-out;
+}
+
+.mealPlanStoryImageContainer{
+  position: absolute;
+  top: 0;
+  z-index: 0;
+  width: 249px;
+  height: 283px;
+}
+
+.mealPlanStoryImage{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mealPlanStoryUserContainer{
+  padding: 10px;
+  height: 92.26px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.70) 0%, rgba(0, 0, 0, 0.00) 100%);
+  position: absolute;
+  top: 0;
+}
+
+.mealPlanStoryUserImage{
+  width: 36.904px;
+  height: 36.904px;
+  border: 1px solid #4f4f4f;
+  border-radius: 10px;
+  margin-right: 6px;
+}
+
+.mealPlanStoryUserName{
+  color: #FFF;
+  font-size: 12px;
+  font-family: 'Poppins';
+  font-weight: 500;
+}
+
+.mealPlanStoryUserContainerBottomContainer{
+  padding: 10px;
+  height: 92.26px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.60) 100%);
+  position: absolute;
+  bottom: 0;
+}
+
+/* end PeopleMealPlanStory */
+
+/* Recipes */
+.RecipeDashboardContainer{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.paginationContainer{
+  display: flex;
+  justify-content: center;
+}
+
+.recipeContainer{
+  transition: 0.3s ease-in-out;
+  width: 311px;
+  height: 412px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 5px 0px rgba(156, 160, 172, 0.80);
+  position: relative;
+  overflow: hidden;
+  margin: 0 5px;
+  margin-bottom: 20px;
+}
+
+.recipeContainer:hover{
+  box-shadow: 4px 4px 18px 0px rgba(156, 160, 172, 0.80);
+  cursor: pointer;
+}
+
+.recipeImageContainer{
+  width: 100%;
+  height: 300px;
+}
+
+.recipeImage{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipeDetailsContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 113px;
+}
+
+.recipeName{
+  font-size: 16px;
+  font-family: 'Poppins';
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-align: center  ;
+}
+
+.recipeNumberIngredients{
+  font-size: 13px;
+  font-family: 'Poppins';
+  color: #B0B0B0;
+}
+
+/* end Recipe */
+
+/* Recipe Modal */
+.recipeImageDashboardContainer{
+  width: 100%;
+  height: 350px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.recipeImageDashboard{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipeHeaderDashboard{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 25px, 0;
+  border-bottom: 0.5px solid #bdbdbd;
+}
+
+.ingredientList{
+  padding: 0 10px;
+}
+
+
+.likeRecipeBtnContainer{
+  /* background-color: #44C4A1; */
+  width: 100%;
+  margin-top: -10%;
+  padding: 0 15px;
+  position: absolute;
+  bottom: 5%;
+}
+
+.likeRecipeBtn{
+  border-radius: 100%;
+  width: 62px;
+  height: 62px;
+  background-color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.likeRecipeBtn:hover{
+  cursor: pointer;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+}
+
+.viewMoreContainer{
+  display: flex;
+  justify-content: center;
+}
+/* end Recipe Modal */
