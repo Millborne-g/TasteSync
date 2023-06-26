@@ -9,10 +9,9 @@ import recipeRecommendations from '../assets/recipe-recommendations.svg';
 import recipeRecommendationsFilled from '../assets/recipe-recommendations-filled.svg';
 import Loader from '../components/Loader'
 
-import {db,storage} from '../firebase';
+import {db} from '../firebase';
 import {uid} from 'uid'; 
 import { onValue, ref, remove, set, update } from 'firebase/database';
-import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, StorageReference } from "firebase/storage";
 import { Dropdown, Button, Modal  } from 'react-bootstrap';
 
 function Profile() {
@@ -97,92 +96,182 @@ function Profile() {
 
 }
 
-const submit_recom_to_DB = () =>{
-  setShowLoader(true);
-  setShowCreateModal(false)
-   if (selectedFile) {
-       const test = 'test';
-       // const storageRefImage = storageRef(storage);
-       
-       const fileRef = storageRef(storage, selectedFile.name);
+  // useEffect(()=>{ 
+  //   // const fetchDataAPI = (recipeNameDashboard,recipeIdLinkDashboard) =>{
+  //   //   setListRecipe([]);
+  //   //   fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
+  //   //   .then((response) => response.json())
+  //   //   .then((data) =>{
+  //   //       // console.log(data.hits)
+  //   //       // setListRecipe([]);
+  //   //       data.hits.forEach(element => {
+  //   //           // let likedRecipeIdAPI = element.recipe.uri.split('#')[1];
+  //   //           if(element.recipe.uri === recipeIdLinkDashboard){
+  //   //             setLabel(element.recipe.label) ;
+  //   //             setMealType(element.recipe.mealType);
+  //   //             setImage(element.recipe.image);
+  //   //             setSource(element.recipe.source);
+  //   //             setIngredientLines(element.recipe.ingredientLines);
+  //   //             setUri(element.recipe.uri);
+  //   //             setUrl(element.recipe.url);
+  //   //             setHealthLabels(element.recipe.healthLabels);
 
-       uploadBytes(fileRef, selectedFile)
-           .then((snapshot) => getDownloadURL(snapshot.ref))
-           .then((url) => {
-               setImageLinkURL(url);
-           })
-           .catch((error) => {
-               console.error('Error uploading image:', error);
-           });
-   } else{
-       setImageLinkURL('http://drive.google.com/uc?export=view&id=1ByrmsfllxPY095bp3B2XULp1rXvaed27');
-   }
+  //   //             // const [label, setLabel] = useState('');
+  //   //             // const [mealType, setMealType] = useState('');;
+  //   //             // const [image, setImage] = useState('');
+  //   //             // const [source, setSource] = useState('');
+  //   //             // const [ingredientLines, setIngredientLines] = useState();
+  //   //             // const [uri, setUri] = useState();
 
-   // alert('Saved to Database');
-}
+  //   //             // const [url, setUrl] = useState();
+  //   //             // const [healthLabels, setHealthLabels] = useState();
+               
+  //   //             setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
+  //   //           }
 
-useEffect(() => {
-  const fetchDataAPI = (recipeNameDashboard, recipeIdLinkDashboard) => {
-    fetch(
-      `https://api.edamam.com/api/recipes/v2?type=public&q=${recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        // const recipe = data.hits.find((element) => element.recipe.uri === recipeIdLinkDashboard)?.recipe;
-        // if (recipe) {
-        //   setListRecipe((oldArray) => [
-        //     ...oldArray,
-        //     {
-        //       name: recipe.label,
-        //       numberIngredients: recipe.ingredientLines.length,
-        //       image: recipe.image,
-        //       source: recipe.source,
-        //       ingredients: recipe.ingredientLines,
-        //       uri: recipe.uri,
-        //       url: recipe.url,
-        //       healthBenefits: recipe.healthLabels,
-        //     },
-        //   ]);
-          // setListRecipe(recipe);
-        // }
-        if (data.hits) {
+  //   //       });
           
-          const recipes = data.hits.map((element) => ({
-            name: element.recipe.label,
-            numberIngredients: element.recipe.ingredientLines.length,
-            image: element.recipe.image,
-            source: element.recipe.source,
-            ingredients: element.recipe.ingredientLines,
-            uri: element.recipe.uri,
-            url: element.recipe.url,
-            healthBenefits: element.recipe.healthLabels,
-          }));
-          console.log(recipes[0])
-          setListRecipe(recipes);
-        }
-      });
-  };
+  //   //       // setListRecipe((oldArray) => [...oldArray,])
+  //   //   })
+  //   // }
 
-  const fetchData = () => {
+  //   const fetchData = () =>{
+  //   //   console.log('executed')
+  //   //   // setListRecipe([]);
+  //   //   // setListRecipe([]);
+  //   //   onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
+  //   //     const data = snapshot.val();
+  //   //     setListRecipe([]);  
+  //   //     if (data !== null) {
+  //   //       // setListRecipe([]);
+          
+  //   //       Object.values(data).map((recipeID) => {
+  //   //           // ngano ga double tungod aning fetch
+  //   //           fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${recipeID.recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
+  //   //           .then((response) => response.json())
+  //   //           .then((data) =>{
+
+  //   //             console.log(recipeID.likedRecipeId);
+  //   //             console.log('---------------------------------');
+  //   //               data.hits.forEach(element => {
+                    
+  //   //                   let likedRecipeIdAPI = element.recipe.uri.split('#')[1];
+  //   //                   if(likedRecipeIdAPI === recipeID.likedRecipeId){
+  //   //                     console.log(likedRecipeIdAPI+' '+ recipeID.likedRecipeId);
+
+  //   //                   //   setLabel(element.recipe.label) ;
+  //   //                   //   setMealType(element.recipe.mealType);
+  //   //                   //   setImage(element.recipe.image);
+  //   //                   //   setSource(element.recipe.source);
+  //   //                   //   setIngredientLines(element.recipe.ingredientLines);
+  //   //                   //   setUri(element.recipe.uri);
+  //   //                   //   setUrl(element.recipe.url);
+  //   //                   //   setHealthLabels(element.recipe.healthLabels);
+        
+  //   //                   //   // const [label, setLabel] = useState('');
+  //   //                   //   // const [mealType, setMealType] = useState('');;
+  //   //                   //   // const [image, setImage] = useState('');
+  //   //                   //   // const [source, setSource] = useState('');
+  //   //                   //   // const [ingredientLines, setIngredientLines] = useState();
+  //   //                   //   // const [uri, setUri] = useState();
+        
+  //   //                   //   // const [url, setUrl] = useState();
+  //   //                   //   // const [healthLabels, setHealthLabels] = useState();
+                       
+  //   //                   setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
+  //   //                   }
+        
+  //   //               });
+                  
+  //   //               // setListRecipe((oldArray) => [...oldArray,])
+  //   //           })
+  //   //         } 
+  //   //       )
+          
+  //   //     }
+  //   //   });
+  //   // }
+
+  //   // fetchData();
+  //   console.log('executed')
+  //   // setListRecipe([]);
+  //   // setListRecipe([]);
+  //   onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
+  //     const data = snapshot.val();
+  //     if (data !== null) {
+  //       // setListRecipe([]);
+        
+  //       Object.values(data).map((recipeID) => {
+  //           // ngano ga double tungod aning fetch
+  //           console.log(recipeID.likedRecipeId);
+  //           fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${recipeID.recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
+  //           .then((response) => response.json())
+  //           .then((data) =>{
+
+  //             console.log(recipeID.likedRecipeId);
+  //             console.log('---------------------------------');
+  //               data.hits.forEach(element => {
+                  
+  //                   let likedRecipeIdAPI = element.recipe.uri.split('#')[1];
+  //                   if(likedRecipeIdAPI === recipeID.likedRecipeId){
+  //                     console.log(likedRecipeIdAPI+' '+ recipeID.likedRecipeId);
+
+  //                   //   setLabel(element.recipe.label) ;
+  //                   //   setMealType(element.recipe.mealType);
+  //                   //   setImage(element.recipe.image);
+  //                   //   setSource(element.recipe.source);
+  //                   //   setIngredientLines(element.recipe.ingredientLines);
+  //                   //   setUri(element.recipe.uri);
+  //                   //   setUrl(element.recipe.url);
+  //                   //   setHealthLabels(element.recipe.healthLabels);
+      
+  //                   //   // const [label, setLabel] = useState('');
+  //                   //   // const [mealType, setMealType] = useState('');;
+  //                   //   // const [image, setImage] = useState('');
+  //                   //   // const [source, setSource] = useState('');
+  //                   //   // const [ingredientLines, setIngredientLines] = useState();
+  //                   //   // const [uri, setUri] = useState();
+      
+  //                   //   // const [url, setUrl] = useState();
+  //                   //   // const [healthLabels, setHealthLabels] = useState();
+                     
+  //                   setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
+  //                   }
+      
+  //               });
+                
+  //               // setListRecipe((oldArray) => [...oldArray,])
+  //           })
+  //         } 
+  //       )
+        
+  //     } else{
+  //       console.log('walay data lugar ?')
+  //     }
+  //   });
+  // }
+    
+
+  // },[]);
+
+
+  useEffect(() =>{
     onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
       const data = snapshot.val();
-      setListRecipe([]);
       if (data !== null) {
-        Object.values(data).forEach((recipeID) => {
-          fetchDataAPI(recipeID.recipeNameDashboard, recipeID.recipeIdLinkDashboard);
-        });
+        setListRecipe([]);
+        Object.values(data).map((recipeID) => {
+            // ngano ga double tungod aning fetch
+            setListRecipe((oldArray) => [...oldArray, [recipeID.recipeNameDashboard, '', recipeID.recipeImageDashboard, recipeID.recipeAuthorDashboard, recipeID.recipeIngredientsDashboard, recipeID.recipeIdLinkDashboard, recipeID.recipeURLDashboard, recipeID.recipeHealthBenifitsDashboard]]);
+           
+          } 
+        )
+        
+      } else{
+        console.log('walay data lugar ?')
       }
     });
-  };
-
-  fetchData();
-
-  // Cleanup function to remove event listeners and reset state
-  return () => {
-    // Remove any event listeners or subscriptions if necessary
-    setListRecipe([]);
-  };
-}, [userID]);
+  },[])
 
   const clickRecipeRecommendations = () =>{
     let likedInnerActive = document.querySelector('.likedInnerActive');
@@ -194,8 +283,9 @@ useEffect(() => {
     recommInnerActive.classList.add('active');
     recommTextActive.classList.add('active');
     setClickedRecipeRecomState(true);
-    setClickedLikedRecipeState(false);
+    setClickedLikedRecipeState(true);
   }
+
 
   const clickLikedRecipe = () =>{
     let recommInnerActive = document.querySelector('.recommInnerActive');
@@ -206,7 +296,7 @@ useEffect(() => {
     recommTextActive.classList.remove('active');
     likedInnerActive.classList.add('active');
     likedTextActive.classList.add('active');
-    setClickedLikedRecipeState(true);
+    setClickedLikedRecipeState(false);
     setClickedRecipeRecomState(false);
   }
 
@@ -226,17 +316,16 @@ useEffect(() => {
         }
     }
 
-    const openRecipeModal = (recipe) => {
-      handleRecipeShow();
-      setRecipeNameDashboard(recipe.name);
-      setRecipeImageDashboard(recipe.image);
-      setRecipeAuthorDashboard(recipe.source);
-      setRecipeIngredientsDashboard(recipe.ingredients);
-      setRecipeIdLinkDashboard(recipe.uri);
-      setRecipeURLDashboard(recipe.url);
-      setRecipeHealthBenifitsDashboard(recipe.healthBenefits);
-
-    };
+    const openRecipeModal = (recipeName,recipeImage,recipeSource,recipeIngredients,recipeUri,recipeUrl,recipeHealthBenifits) =>{
+      handleRecipeShow(); 
+      setRecipeNameDashboard(recipeName);
+      setRecipeImageDashboard(recipeImage);
+      setRecipeAuthorDashboard(recipeSource);
+      setRecipeIngredientsDashboard(recipeIngredients);
+      setRecipeIdLinkDashboard(recipeUri);
+      setRecipeURLDashboard(recipeUrl);
+      setRecipeHealthBenifitsDashboard(recipeHealthBenifits)
+  }
   return (
     <>
       <Navbar/>
@@ -254,22 +343,19 @@ useEffect(() => {
                   <span className='socialLinkLabelText likedTextActive active'>Liked Recipe</span> 
                 </div>
                 <div className="socialLinkLabel-inner recommInnerActive" onClick={()=>{clickRecipeRecommendations()}}>
-                  <img className='socialLinkLabelImage' src={clickedLikedRecipeState ? recipeRecommendations : recipeRecommendationsFilled} alt="" /> 
-                  <span className='socialLinkLabelText recommTextActive'>Recipe Recommendations</span> 
+                  <img className='socialLinkLabelImage' src={clickedLikedRecipeState ? recipeRecommendationsFilled : recipeRecommendations } alt="" /> 
+                  <span className='socialLinkLabelText recommTextActive'>Meal Journey</span> 
                 </div>
               </div>
               <div className='socialLinkDivider'></div> 
               {!clickedRecipeRecomState ?
               <>
               <div className='RecipeDashboardContainer'>
-                {listRecipe.map((recipe, index) => (
-                  <RecipeCard
-                    key={index}
-                    recipe={recipe}
-                    openRecipeModal={openRecipeModal}
-                  />
+                {records.map((recipe, index)=>(
+                    <RecipeCard key={index}  recipeName={recipe[0]} recipeNumberIngredients={recipe[1]} recipeImage={recipe[2]} recipeSource={recipe[3]} recipeIngredients={recipe[4]} recipeUri={recipe[5]} recipeUrl={recipe[6]} recipeHealthBenifits={recipe[7]} openRecipeModal={openRecipeModal}/>
                 ))}
               </div>
+              {numbers.length>1? 
               <div className='paginationContainer'>
                 <ul className='pagination'>
                     <li className='page-item'>
@@ -290,6 +376,8 @@ useEffect(() => {
                 </ul>
 
               </div>
+              : ''
+            }
               
               <Modal show={showRecipeModal} onHide={handleRecipeClose} centered>
                   <Modal.Header closeButton>
@@ -356,12 +444,12 @@ useEffect(() => {
                 </div>
                 <Modal show={showCreateModal} onHide={handleClose} centered>
                     <Modal.Header closeButton>
-                    <Modal.Title>Create Recipe Recommendations</Modal.Title>
+                    <Modal.Title>Create Meal Journey</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
                             <label htmlFor="createLink" className="form-label userCreateLinkNameLabel">Title</label>
-                            <input type="text" className="form-control userCreateLinkInput" id="createLink" placeholder='Link name' value={recomTitle} onChange={(e)=>setRecomTitle(e.target.value)} required/>
+                            <input type="text" className="form-control userCreateLinkInput" id="createLink" placeholder='Title' value={recomTitle} onChange={(e)=>setRecomTitle(e.target.value)} required/>
                             <label htmlFor="createLinkImage" className="form-label userCreateLinkNameLabel">Cover Image</label>
                             <input type="file" className="form-control" id="createLinkImage" accept="image/png, image/gif, image/jpeg" onChange={(e) => handleFileChange(e)}/>
                         </form>
@@ -370,7 +458,7 @@ useEffect(() => {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" type='submit'onClick={()=>submit_recom_to_DB()}>Save</Button>
+                    <Button variant="primary" type='submit' >Save</Button>
                     </Modal.Footer>
                 </Modal>
               </>

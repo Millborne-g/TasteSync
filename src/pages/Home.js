@@ -18,7 +18,7 @@ import { onValue, ref, remove, set, update } from 'firebase/database';
 function Home() {
     const cookies = new Cookies();
     const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
-    const [searchInput, setSearchInput] = useState('');
+    const [searchInput, setSearchInput] = useState('salad');
     const [recipeImageDashboard, setRecipeImageDashboard] = useState('');
     const [recipeNameDashboard, setRecipeNameDashboard] = useState('');
     const [recipeAuthorDashboard, setRecipeAuthorDashboard] = useState('');
@@ -26,8 +26,10 @@ function Home() {
     const [recipeHealthBenifitsDashboard, setRecipeHealthBenifitsDashboard] = useState([]);
     const [recipeIdLinkDashboard, setRecipeIdLinkDashboard] = useState('');
     const [recipeURLDashboard, setRecipeURLDashboard] = useState('');
+    const [recipeMealType, setRecipeMealType] = useState('');
     const [showRecipeModal, setShowRecipeModal] = useState(false);
     const [clickLike, setClickLike] = useState(false);
+    const [clickSearch, setClickSearch] = useState(false);
 
     const handleRecipeClose = () => {
         setShowRecipeModal(false);
@@ -46,7 +48,15 @@ function Home() {
             set(ref(db, `userLikedRecipe/${userID}/${likedRecipeId}`), {
                 likedRecipeId,
                 recipeNameDashboard,
-                recipeIdLinkDashboard
+                recipeIdLinkDashboard,
+                searchInput,
+                recipeImageDashboard,
+                recipeNameDashboard,
+                recipeAuthorDashboard,
+                recipeIngredientsDashboard,
+                recipeHealthBenifitsDashboard,
+                recipeURLDashboard,
+
             });
         } else{
             remove(ref(db, `userLikedRecipe/${userID}/${likedRecipeId}`));
@@ -79,7 +89,7 @@ function Home() {
         <div className='dashboard-inner container'>
             <div className="navbarMealPlanDashboard">
                 <div className='headerMealPlanDashboard-inner'>
-                    <span className='headerMealPlanRecipe'>Discover Other People's <span className='highlightMealPlanRecipe'>Meal Plans</span></span>
+                    <span className='headerMealPlanRecipe'>Discover People's <span className='highlightMealPlanRecipe'>Meal Journey</span></span>
                 </div>
             </div>
             <div className='peoplesMealPlanContainer'>
@@ -96,7 +106,7 @@ function Home() {
                     <span className='headerMealPlanRecipe' id='headerMealPlanRecipe'>Explore new <span className='highlightMealPlanRecipe'>Recipes</span></span>
                     
                     <div className='searchBarDashboard'>
-                        <form className='searhbarForm' onSubmit={(e)=>{e.preventDefault()}}>
+                        <form className='searhbarForm' onSubmit={(e)=>{e.preventDefault(); setClickSearch(true)}}>
                             <input type="text" className="form-control searhInput" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2" value={searchInput} onChange={(e) =>{setSearchInput(e.target.value)}}/>
                             <button className="btn searhBtn" type="submit"><img src={searchIcon}/></button>
                             <div className="btnDividerContainer">
@@ -109,7 +119,7 @@ function Home() {
                 </div>
             </div>
             
-            <RecipeList searchInput={searchInput} setRecipeNameDashboard={setRecipeNameDashboard} handleRecipeShow={handleRecipeShow} setRecipeImageDashboard={setRecipeImageDashboard} setRecipeAuthorDashboard={setRecipeAuthorDashboard} setRecipeIngredientsDashboard={setRecipeIngredientsDashboard} setRecipeIdLinkDashboard={setRecipeIdLinkDashboard} setRecipeURLDashboard={setRecipeURLDashboard} setRecipeHealthBenifitsDashboard={setRecipeHealthBenifitsDashboard}/>
+            <RecipeList searchInput={searchInput} setRecipeNameDashboard={setRecipeNameDashboard} handleRecipeShow={handleRecipeShow} setRecipeImageDashboard={setRecipeImageDashboard} setRecipeAuthorDashboard={setRecipeAuthorDashboard} setRecipeIngredientsDashboard={setRecipeIngredientsDashboard} setRecipeIdLinkDashboard={setRecipeIdLinkDashboard} setRecipeURLDashboard={setRecipeURLDashboard} setRecipeHealthBenifitsDashboard={setRecipeHealthBenifitsDashboard} clickSearch={clickSearch} setClickSearch={setClickSearch}/>
 
             
             
