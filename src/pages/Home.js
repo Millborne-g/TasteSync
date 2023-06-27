@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import Navbar from '../components/Navbar';
-import PeopleMealPlanStory from '../components/PeopleMealPlanStory';
+import PeopleStory from '../components/PeopleStory';
 import RecipeList from '../components/RecipeList';
 import { Dropdown, Button, Modal  } from 'react-bootstrap';
 import {db} from '../firebase';
@@ -92,15 +92,7 @@ function Home() {
                     <span className='headerMealPlanRecipe'>Discover People's <span className='highlightMealPlanRecipe'>Meal Journey</span></span>
                 </div>
             </div>
-            <div className='peoplesMealPlanContainer'>
-                <PeopleMealPlanStory />
-                <PeopleMealPlanStory />
-                <PeopleMealPlanStory />
-                <PeopleMealPlanStory />
-                <PeopleMealPlanStory />
-                <PeopleMealPlanStory />
-                <PeopleMealPlanStory />
-            </div>
+            <PeopleStory />
             <div className="navbarRecipesDashboard">
                 <div className='navbarRecipesDashboard-inner'>
                     <span className='headerMealPlanRecipe' id='headerMealPlanRecipe'>Explore new <span className='highlightMealPlanRecipe'>Recipes</span></span>

@@ -9,9 +9,10 @@ import recipeRecommendations from '../assets/recipe-recommendations.svg';
 import recipeRecommendationsFilled from '../assets/recipe-recommendations-filled.svg';
 import Loader from '../components/Loader'
 
-import {db} from '../firebase';
+import {db, storage} from '../firebase';
 import {uid} from 'uid'; 
 import { onValue, ref, remove, set, update } from 'firebase/database';
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL, StorageReference } from "firebase/storage";
 import { Dropdown, Button, Modal  } from 'react-bootstrap';
 
 function Profile() {
@@ -49,7 +50,7 @@ function Profile() {
   const [clickLike, setClickLike] = useState(false);
 
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [recomTitle, setRecomTitle] = useState('')
+  const [caption, setCaption] = useState('')
   const [selectedFile, setSelectedFile] = useState(null);;
   const [imageLinkURL, setImageLinkURL] = useState('');
   const [showLoader, setShowLoader] = useState(false);
@@ -64,13 +65,87 @@ function Profile() {
 
   const handleClose = () => {
     setShowCreateModal(false);
-    setRecomTitle('');
+    setCaption('');
   };
   const handleShow = () => setShowCreateModal(true);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     setSelectedFile(file);
+  };
+
+  useEffect(()=>{
+    const uuid = uid();
+    const currentDate = new Date();
+    const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true
+    };
+    // title date and time
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+    // end title date and time
+  
+    const formattedTitleDateTime = `${year}-${month}-${day}_${hours}:${minutes}:${seconds}`;
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(currentDate);
+
+    // Add 24 hours to the current date
+    const nextDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000);
+    const formattedNextDate = new Intl.DateTimeFormat('en-US', options).format(nextDate);
+
+    if(imageLinkURL){
+        set(ref(db, `/userStory/${formattedTitleDateTime}_${uuid}`), {
+            caption,
+            imageLinkURL,
+            formattedDate,
+            uuid,
+            listRecipe,
+            formattedNextDate,
+            dateID:formattedTitleDateTime+'_'+uuid,
+            userID
+        });
+
+        setShowLoader(false)
+        setCaption('')
+        setImageLinkURL('')
+        
+        // setToastText('Link successfully created!');
+        // setShowToast(true);
+    }
+    
+  },[imageLinkURL])
+
+  const shareFavBtn = () => {
+    setShowLoader(true);
+    setShowCreateModal(false);
+  
+    if (selectedFile) {
+      const fileRef = storageRef(storage, selectedFile.name);
+  
+      uploadBytes(fileRef, selectedFile)
+        .then((snapshot) => getDownloadURL(snapshot.ref))
+        .then((url) => {
+          setImageLinkURL(url);
+          // Save the URL to the Realtime Database if needed
+          // For example:
+          // saveImageLinkToDatabase(url);
+        })
+        .catch((error) => {
+          console.error("Error uploading image:", error);
+        });
+    } else {
+      setImageLinkURL(
+        "http://drive.google.com/uc?export=view&id=1ByrmsfllxPY095bp3B2XULp1rXvaed27"
+      );
+    }
   };
 
   const likeRecipe = () =>{
@@ -273,33 +348,6 @@ function Profile() {
     });
   },[])
 
-  const clickRecipeRecommendations = () =>{
-    let likedInnerActive = document.querySelector('.likedInnerActive');
-    let likedTextActive = document.querySelector('.likedTextActive');
-    let recommInnerActive = document.querySelector('.recommInnerActive');
-    let recommTextActive = document.querySelector('.recommTextActive');
-    likedInnerActive.classList.remove('active');
-    likedTextActive.classList.remove('active');
-    recommInnerActive.classList.add('active');
-    recommTextActive.classList.add('active');
-    setClickedRecipeRecomState(true);
-    setClickedLikedRecipeState(true);
-  }
-
-
-  const clickLikedRecipe = () =>{
-    let recommInnerActive = document.querySelector('.recommInnerActive');
-    let recommTextActive = document.querySelector('.recommTextActive');
-    let likedInnerActive = document.querySelector('.likedInnerActive');
-    let likedTextActive = document.querySelector('.likedTextActive');
-    recommInnerActive.classList.remove('active');
-    recommTextActive.classList.remove('active');
-    likedInnerActive.classList.add('active');
-    likedTextActive.classList.add('active');
-    setClickedLikedRecipeState(false);
-    setClickedRecipeRecomState(false);
-  }
-
   const prePage = () =>{
     if(currentPage !== 1){
         setCurrentPage(currentPage-1);
@@ -338,18 +386,17 @@ function Profile() {
             </div>
             
               <div className="socialLinkLabel">
-                <div className="socialLinkLabel-inner likedInnerActive active" onClick={()=>{clickLikedRecipe()}}>
-                  <img className='socialLinkLabelImage' src={clickedRecipeRecomState ? heartIcon : heartIconBlue} alt="" /> 
-                  <span className='socialLinkLabelText likedTextActive active'>Liked Recipe</span> 
-                </div>
-                <div className="socialLinkLabel-inner recommInnerActive" onClick={()=>{clickRecipeRecommendations()}}>
-                  <img className='socialLinkLabelImage' src={clickedLikedRecipeState ? recipeRecommendationsFilled : recipeRecommendations } alt="" /> 
-                  <span className='socialLinkLabelText recommTextActive'>Meal Journey</span> 
+                <div className="socialLinkLabel-inner likedInnerActive active">
+                  <img className='socialLinkLabelImage' src={heartIconBlue} alt="" /> 
+                  <span className='socialLinkLabelText likedTextActive active'>Favorites</span> 
                 </div>
               </div>
               <div className='socialLinkDivider'></div> 
-              {!clickedRecipeRecomState ?
-              <>
+              <div className="totalCreateContainer">
+                    <div className="totalCreateContainer-inner">
+                        <button type="button" className="btn btn-primary createLinkBtn" onClick={handleShow}> <span>Share</span> </button>
+                    </div>
+              </div>
               <div className='RecipeDashboardContainer'>
                 {records.map((recipe, index)=>(
                     <RecipeCard key={index}  recipeName={recipe[0]} recipeNumberIngredients={recipe[1]} recipeImage={recipe[2]} recipeSource={recipe[3]} recipeIngredients={recipe[4]} recipeUri={recipe[5]} recipeUrl={recipe[6]} recipeHealthBenifits={recipe[7]} openRecipeModal={openRecipeModal}/>
@@ -435,36 +482,31 @@ function Profile() {
                   {/* <Button variant="primary" type='submit' onClick={()=>submit_Link_to_DB()}>Save</Button> */}
                   </Modal.Footer>
               </Modal>
-              </> : 
-              <>
-                <div className="totalCreateContainer">
-                    <div className="totalCreateContainer-inner">
-                        <button type="button" className="btn btn-primary createLinkBtn" onClick={handleShow}> <span>+ Create</span> </button>
-                    </div>
-                </div>
-                <Modal show={showCreateModal} onHide={handleClose} centered>
+              <Modal show={showCreateModal} onHide={handleClose} centered>
                     <Modal.Header closeButton>
-                    <Modal.Title>Create Meal Journey</Modal.Title>
+                    <Modal.Title>Share Favorites</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <form>
-                            <label htmlFor="createLink" className="form-label userCreateLinkNameLabel">Title</label>
-                            <input type="text" className="form-control userCreateLinkInput" id="createLink" placeholder='Title' value={recomTitle} onChange={(e)=>setRecomTitle(e.target.value)} required/>
-                            <label htmlFor="createLinkImage" className="form-label userCreateLinkNameLabel">Cover Image</label>
+                            <label htmlFor="createLinkImage" className="form-label userCreateLinkNameLabel">Thumbnail</label>
                             <input type="file" className="form-control" id="createLinkImage" accept="image/png, image/gif, image/jpeg" onChange={(e) => handleFileChange(e)}/>
+                            <label htmlFor="floatingTextarea">Caption</label>
+                            <textarea className="form-control" placeholder="Leave a caption here" id="floatingTextarea" value={caption} onChange={(e)=>{setCaption(e.target.value)}}></textarea> 
                         </form>
                     </Modal.Body>
                     <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" type='submit' >Save</Button>
+                    <Button variant="primary" type='button' onClick={()=>{shareFavBtn()}}>Save</Button>
                     </Modal.Footer>
                 </Modal>
-              </>
-              }
 
         </div>
+
+        {showLoader && 
+          <Loader/>
+        }
 
         
       </section>

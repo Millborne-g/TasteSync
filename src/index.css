@@ -982,11 +982,13 @@ code {
   /* background-color: #F9ED32; */
   width: 100%;
   margin-bottom: 1%;
+  display: flex;
   /* height: 100px; */
 }
 
 .totalCreateContainer-inner{
   width: 100%;
+  /* background-color: #F9ED32; */
 }
 
 
@@ -998,3 +1000,59 @@ code {
 
 
 /* end Profile */
+
+/* story Popup */
+.storyPopUpUserContainer{
+  display: flex;
+  align-items: center;
+  /* background-color: #0066FF; */
+  margin-bottom: 10px;
+}
+
+.storyPopUpUserImageContainer{
+  margin-right: 10px;
+}
+
+.storyPopUpUserImage{
+  height: 55px;
+  border-radius: 100%;
+  border: 0.5px solid #b0b0b0;
+}
+
+.storyPopUpUserDetailsContainer{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.storyPopUpUserName{
+  color: #000;
+  font-size: 20px;
+  font-family: 'Poppins';
+}
+
+.storyPopUpUserDatePosted{
+  color: #9CA0AC;
+  font-size: 13px;
+  font-family: 'Poppins';
+}
+
+.storyPopUpUserCaptionContainer{
+  display: flex;
+  align-items: center;
+  background-color: #44C4A1;
+}
+
+.storyPopUpUserCaption{
+  color: #000;
+  font-size: 13.847px;
+  font-family: 'Poppins';
+}
+
+.storyPopUpUserRecipeContainer{
+  display: flex;
+  align-items: center;
+  background-color: #c4b944;
+}
+
+/* end Story Popup */

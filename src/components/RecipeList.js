@@ -38,7 +38,9 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
                     
                 });
                 // setListRecipe((oldArray) => [...oldArray,])
-            })
+            }).catch(error => {
+                console.log('no data')
+              });
             setClickSearch(false);
         } 
         else if(!searchInput){
