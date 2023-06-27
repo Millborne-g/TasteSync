@@ -15,7 +15,7 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
     const [displayList, setDisplayList] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 10;
+    const recordsPerPage = 8;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
     const records = listRecipe.slice(firstIndex, lastIndex);

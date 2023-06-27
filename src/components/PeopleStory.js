@@ -19,7 +19,9 @@ function PeopleStory() {
   const [userRecipeList, setUserRecipeList] = useState([]);
   const [storyDateID, setStoryDateID] = useState([]);
 
-  const [clickDeleteStory, setClickDeleteStory] = useState(false)
+  const [clickDeleteStory, setClickDeleteStory] = useState(false);
+
+  const [updatePage, setUpdatePage] = useState(false);
 
   const getStoryData = () =>{
       // Perform actions for returning user
@@ -34,9 +36,11 @@ function PeopleStory() {
         hour12: true
       };
 
-      setStoryList([]);
+      
       onValue(ref(db, '/userStory'), (snapshot) => {
         const data = snapshot.val();
+        setStoryList([]);
+        
         if (data !== null) {
           const reversedData = Object.values(data).reverse();
           reversedData.forEach((story) => {
@@ -66,21 +70,12 @@ function PeopleStory() {
           });
         }
       });
-      
+
   }
 
   useEffect(() => {
-    const isFirstTimeUser = !localStorage.getItem('hasVisitedBefore');
-
-    if (isFirstTimeUser) {
-      // Perform actions for first-time user
-      console.log('First time user');
-      localStorage.setItem('hasVisitedBefore', 'true');
-      setStoryList([]);
-    } else {
-      setStoryList([]);
-      getStoryData();
-    }
+    setStoryList([]);
+    getStoryData();
   }, []); // Empty dependency array ensures the effect runs only once on component mount
 
 
@@ -116,6 +111,7 @@ function PeopleStory() {
     handleClose()
     remove(ref(db, `userStory/${storyDateID}`));
   }
+  
 
   return (
     <>
