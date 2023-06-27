@@ -993,8 +993,13 @@ code {
 
 
 .createLinkBtn{
-  height: 50px;
+  height: 55px;
   float: right;
+}
+
+.createLinkBtn img{
+  margin-right: 5px;
+  margin-top: -5px;
 }
 /* end of recipe recommendation*/
 

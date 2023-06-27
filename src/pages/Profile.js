@@ -5,6 +5,8 @@ import RecipeCard from '../components/RecipeCard';
 import heartIconBlue from '../assets/heart-filled-icon-blue.svg';
 import heartIcon from '../assets/heart-icon.svg'
 import heartIconFilled from '../assets/heart-filled-icon.svg';
+import ShareIcon from '../assets/share-icon.svg'
+
 import recipeRecommendations from '../assets/recipe-recommendations.svg';
 import recipeRecommendationsFilled from '../assets/recipe-recommendations-filled.svg';
 import Loader from '../components/Loader';
@@ -59,6 +61,12 @@ function Profile() {
   const [selectedFile, setSelectedFile] = useState(null);;
   const [imageLinkURL, setImageLinkURL] = useState('');
   const [showLoader, setShowLoader] = useState(false);
+
+  useEffect(()=>{
+    if(!userID){
+      window.open('http://localhost:3000/', '_self');
+    }
+  },[userID])
 
   const customId = "custom-id-notify";
 
@@ -129,10 +137,19 @@ function Profile() {
 
     if(imageLinkURL){
       let recipes;
+      let userNameDB;
+      let userImageDB;
       onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
         const data = snapshot.val();
         if (data !== null) {
           recipes=data
+        }
+      })
+      onValue(ref(db, `/users/${userID}`), (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null) {
+          userNameDB=data.name;
+          userImageDB = data.imageLink;
         }
       })
         set(ref(db, `/userStory/${formattedTitleDateTime}_${uuid}`), {
@@ -143,14 +160,16 @@ function Profile() {
             recipes,
             formattedNextDate,
             dateID:formattedTitleDateTime+'_'+uuid,
-            userID
+            userID,
+            userNameDB,
+            userImageDB
         });
 
         setShowLoader(false)
         setCaption('')
         setImageLinkURL('')
         
-        setToastText('Favorite shared successfully!');
+        setToastText('Favorites shared successfully!');
         setShowToast(true);
     }
     
@@ -213,7 +232,6 @@ function Profile() {
         Object.values(data).map((recipeID) => {
             // ngano ga double tungod aning fetch
             setListRecipe((oldArray) => [...oldArray, [recipeID.recipeNameDashboard, '', recipeID.recipeImageDashboard, recipeID.recipeAuthorDashboard, recipeID.recipeIngredientsDashboard, recipeID.recipeIdLinkDashboard, recipeID.recipeURLDashboard, recipeID.recipeHealthBenifitsDashboard]]);
-           
           } 
         )
         
@@ -269,7 +287,7 @@ function Profile() {
               <div className='socialLinkDivider'></div> 
               <div className="totalCreateContainer">
                     <div className="totalCreateContainer-inner">
-                        <button type="button" className="btn btn-primary createLinkBtn" onClick={handleShow}> <span>Share</span> </button>
+                        <button type="button" className="btn btn-primary createLinkBtn" onClick={handleShow}> <img src={ShareIcon}/><span>Share</span> </button>
                     </div>
               </div>
               <div className='RecipeDashboardContainer'>

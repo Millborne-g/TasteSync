@@ -23,9 +23,13 @@ function PeopleStory() {
 
   const [updatePage, setUpdatePage] = useState(false);
 
+  const [getDataCounter, setGetDataCouter] = useState(0);
+
   const getStoryData = () =>{
       // Perform actions for returning user
-      console.log('Returning user');
+      console.log('Returning user'+getDataCounter);  
+
+      if(getDataCounter>0){
       const currentDate = new Date();
       const options = {
         year: 'numeric',
@@ -38,46 +42,48 @@ function PeopleStory() {
 
       
       onValue(ref(db, '/userStory'), (snapshot) => {
+
         const data = snapshot.val();
-        setStoryList([]);
-        
         if (data !== null) {
+          setStoryList([]);
           const reversedData = Object.values(data).reverse();
           reversedData.forEach((story) => {
+            console.log('storyID is here '+story.userID);
             const dateToday = new Intl.DateTimeFormat('en-US', options).format(currentDate);
             if (dateToday !== story.formattedNextDate) {
-              onValue(ref(db, `/users/${story.userID}`), (snapshot) => {
-                const userData = snapshot.val();
-                if (userData !== null) {
-                  setStoryList((oldArray) => [
-                    ...oldArray,
-                    [
-                      story.caption,
-                      story.dateID,
-                      story.formattedDate,
-                      story.imageLinkURL,
-                      story.recipes,
-                      story.userID,
-                      userData.name,
-                      userData.imageLink
-                    ]
-                  ]);
-                }
-              });
+              setStoryList((oldArray) => [
+                ...oldArray,
+                [
+                  story.caption,
+                  story.dateID,
+                  story.formattedDate,
+                  story.imageLinkURL,
+                  story.recipes,
+                  story.userID,
+                  story.userNameDB,
+                  story.userImageDB
+                ]
+              ]);
             } else {
               remove(ref(db, `userStory/${story.dateID}`));
             }
           });
+
         }
       });
+    }
+
 
   }
 
+  useEffect(()=>{
+    getStoryData();
+  },[getDataCounter])
+
   useEffect(() => {
     setStoryList([]);
-    getStoryData();
-  }, []); // Empty dependency array ensures the effect runs only once on component mount
-
+    setGetDataCouter((getDataCounter+1));
+  }, []);
 
   const handleClose = () => {
     setShowStoryModal(false);
