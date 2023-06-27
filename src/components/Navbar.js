@@ -59,7 +59,7 @@ function Navbar() {
                           <ul className="dropdown-menu">
                             <li><a className="dropdown-item" href={`/${userID}`}>Profile</a></li>
                             <hr className="dropdown-divider"/>
-                            <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</a></li>
+                            <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self'); localStorage.setItem('emptyStory',[])}}>Logout</a></li>
                           </ul>
                         </li>
                       </>

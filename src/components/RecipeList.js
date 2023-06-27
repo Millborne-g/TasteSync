@@ -15,7 +15,7 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
     const [displayList, setDisplayList] = useState([]);
 
     const [currentPage, setCurrentPage] = useState(1);
-    const recordsPerPage = 12;
+    const recordsPerPage = 10;
     const lastIndex = currentPage * recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
     const records = listRecipe.slice(firstIndex, lastIndex);
@@ -59,10 +59,12 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
                 });
                 // setListRecipe((oldArray) => [...oldArray,])
                 setClickSearch(false);
-            })
-        } else{
-            setListRecipe([]);
-        }
+            }).catch(error => {
+                console.log('no data')
+              });
+            } else{
+                setListRecipe([]);
+            }
       } 
     //   else{
     //     setListRecipe([]);

@@ -15,57 +15,107 @@ function PeopleStory() {
   const [userName, setUserName] = useState('');
   const [userDatePosted, setUserDatePosted] = useState('');
   const [userCaption, setUserCaption] = useState('');
-  const [userRecipeList, setUserRecipeList] = useState();
+  const [userStoryID, setUserStoryID] = useState('');
+  const [userRecipeList, setUserRecipeList] = useState([]);
+  const [storyDateID, setStoryDateID] = useState([]);
 
-  useEffect(() =>{
+  const [clickDeleteStory, setClickDeleteStory] = useState(false)
 
-    setStoryList([]);
-    const currentDate = new Date();
-    const options = {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true
-    };
-    onValue(ref(db, `/userStory`), (snapshot) => {
-      const data = snapshot.val();
-      if (data !== null) {
-        setStoryList([]);
-        const reversedData = Object.values(data).reverse();
-        reversedData.forEach((story) => {
+  const getStoryData = () =>{
+      // Perform actions for returning user
+      console.log('Returning user');
+      const currentDate = new Date();
+      const options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        hour12: true
+      };
+
+      setStoryList([]);
+      onValue(ref(db, '/userStory'), (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null) {
+          const reversedData = Object.values(data).reverse();
+          reversedData.forEach((story) => {
             const dateToday = new Intl.DateTimeFormat('en-US', options).format(currentDate);
-            if(dateToday !== story.formattedNextDate){
+            if (dateToday !== story.formattedNextDate) {
               onValue(ref(db, `/users/${story.userID}`), (snapshot) => {
                 const userData = snapshot.val();
                 if (userData !== null) {
-                  setStoryList((oldArray) =>[...oldArray, [story.caption, story.dateID, story.formattedDate, story.imageLinkURL, story.listRecipe, story.userID, userData.name, userData.imageLink]])
+                  setStoryList((oldArray) => [
+                    ...oldArray,
+                    [
+                      story.caption,
+                      story.dateID,
+                      story.formattedDate,
+                      story.imageLinkURL,
+                      story.recipes,
+                      story.userID,
+                      userData.name,
+                      userData.imageLink
+                    ]
+                  ]);
                 }
-              })
-            
-            } else{
-              remove(ref(db, `/${story.formattedNextDate}`));
+              });
+            } else {
+              remove(ref(db, `userStory/${story.dateID}`));
             }
-            
-        });
-      }
-    });
-  },[]);
+          });
+        }
+      });
+      
+  }
+
+  useEffect(() => {
+    const isFirstTimeUser = !localStorage.getItem('hasVisitedBefore');
+
+    if (isFirstTimeUser) {
+      // Perform actions for first-time user
+      console.log('First time user');
+      localStorage.setItem('hasVisitedBefore', 'true');
+      setStoryList([]);
+    } else {
+      setStoryList([]);
+      getStoryData();
+    }
+  }, []); // Empty dependency array ensures the effect runs only once on component mount
+
 
   const handleClose = () => {
     setShowStoryModal(false);
   };
 
-  const storyShow = (caption, formattedDate, userName, userImage, listRecipe) => {
+  const storyShow = (caption, formattedDate, userName, userImage, listRecipe, storyUserID,storyDateIDDB) => {
     setShowStoryModal(true);
     setUserImage(userImage);
     setUserName(userName);
     setUserDatePosted(formattedDate);
     setUserCaption(caption);
     setUserRecipeList(listRecipe);
-    console.log(userRecipeList);
+    setUserStoryID(storyUserID);
+    setStoryDateID(storyDateIDDB);
+
+    Object.keys(userRecipeList).forEach((recipeKey) => {
+      const recipe = userRecipeList[recipeKey];
+      const searchInput = recipe.searchInput; // Replace 'searchInput' with the actual property name
+      console.log("Search Input:", userRecipeList[recipeKey].searchInput);
+    });
   };
+
+  useEffect(()=>{
+    setStoryList([]);
+    getStoryData();
+    setClickDeleteStory(false);
+  },[clickDeleteStory])
+
+  const deleteStory = () =>{
+    setClickDeleteStory(true);
+    handleClose()
+    remove(ref(db, `userStory/${storyDateID}`));
+  }
 
   return (
     <>
@@ -95,18 +145,27 @@ function PeopleStory() {
                 {userCaption}
               </span>
             </div>
-            {/* {userImage}
-            {userName}
-            {userDatePosted}
-            {userCaption}
-            {userRecipeList} */}
             <div className='storyPopUpUserRecipeContainer'>
-              {userRecipeList.map((recipe, index) => (
-                <span key={index}>{recipe}</span>
+              
+              {Object.keys(userRecipeList).map((recipeKey) => (
+                <a key={recipeKey} className='storyPopUpUserRecipe' href={userRecipeList[recipeKey].recipeURLDashboard} target='_blank'>
+                  <div className='storyPopUpUserRecipeImageContainer'>
+                    <img className='storyPopUpUserRecipeImage' src={userRecipeList[recipeKey].recipeImageDashboard}/>
+                  </div>
+                  <div className='storyPopUpUserRecipeDetailsContainer'>
+                    <span className='storyPopUpUserRecipeName'>{userRecipeList[recipeKey].recipeNameDashboard}</span> <br/>
+                    <span className='storyPopUpUserRecipeAuthor'>{userRecipeList[recipeKey].recipeAuthorDashboard}</span>
+                  </div>
+                </a>
               ))}
             </div>
           </Modal.Body>
           <Modal.Footer>
+          {userID === userStoryID &&
+            <Button variant="danger" onClick={() => {deleteStory();}}>
+              delete
+            </Button>
+          }
           <Button variant="secondary" onClick={handleClose}>
               Close
           </Button>

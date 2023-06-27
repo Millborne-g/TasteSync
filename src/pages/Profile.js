@@ -7,7 +7,9 @@ import heartIcon from '../assets/heart-icon.svg'
 import heartIconFilled from '../assets/heart-filled-icon.svg';
 import recipeRecommendations from '../assets/recipe-recommendations.svg';
 import recipeRecommendationsFilled from '../assets/recipe-recommendations-filled.svg';
-import Loader from '../components/Loader'
+import Loader from '../components/Loader';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {db, storage} from '../firebase';
 import {uid} from 'uid'; 
@@ -18,6 +20,9 @@ import { Dropdown, Button, Modal  } from 'react-bootstrap';
 function Profile() {
   const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
   const [listRecipe, setListRecipe] = useState([]);
+
+  const [showToast, setShowToast] = useState(false);
+  const [toastText,setToastText] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 12;
@@ -55,9 +60,30 @@ function Profile() {
   const [imageLinkURL, setImageLinkURL] = useState('');
   const [showLoader, setShowLoader] = useState(false);
 
+  const customId = "custom-id-notify";
+
+  const notify = () => toast.success(toastText, {
+    position: "top-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    toastId: customId
+  });
+
+  useEffect(() => {
+    if (showToast) {
+      notify();
+    }
+  }, [toastText]);
+
   const handleRecipeClose = () => {
     setShowRecipeModal(false);
   };
+
   const handleRecipeShow = () => {
       setClickLike(true);
       setShowRecipeModal(true);
@@ -102,12 +128,19 @@ function Profile() {
     const formattedNextDate = new Intl.DateTimeFormat('en-US', options).format(nextDate);
 
     if(imageLinkURL){
+      let recipes;
+      onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null) {
+          recipes=data
+        }
+      })
         set(ref(db, `/userStory/${formattedTitleDateTime}_${uuid}`), {
             caption,
             imageLinkURL,
             formattedDate,
             uuid,
-            listRecipe,
+            recipes,
             formattedNextDate,
             dateID:formattedTitleDateTime+'_'+uuid,
             userID
@@ -117,8 +150,8 @@ function Profile() {
         setCaption('')
         setImageLinkURL('')
         
-        // setToastText('Link successfully created!');
-        // setShowToast(true);
+        setToastText('Favorite shared successfully!');
+        setShowToast(true);
     }
     
   },[imageLinkURL])
@@ -170,164 +203,6 @@ function Profile() {
     
 
 }
-
-  // useEffect(()=>{ 
-  //   // const fetchDataAPI = (recipeNameDashboard,recipeIdLinkDashboard) =>{
-  //   //   setListRecipe([]);
-  //   //   fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
-  //   //   .then((response) => response.json())
-  //   //   .then((data) =>{
-  //   //       // console.log(data.hits)
-  //   //       // setListRecipe([]);
-  //   //       data.hits.forEach(element => {
-  //   //           // let likedRecipeIdAPI = element.recipe.uri.split('#')[1];
-  //   //           if(element.recipe.uri === recipeIdLinkDashboard){
-  //   //             setLabel(element.recipe.label) ;
-  //   //             setMealType(element.recipe.mealType);
-  //   //             setImage(element.recipe.image);
-  //   //             setSource(element.recipe.source);
-  //   //             setIngredientLines(element.recipe.ingredientLines);
-  //   //             setUri(element.recipe.uri);
-  //   //             setUrl(element.recipe.url);
-  //   //             setHealthLabels(element.recipe.healthLabels);
-
-  //   //             // const [label, setLabel] = useState('');
-  //   //             // const [mealType, setMealType] = useState('');;
-  //   //             // const [image, setImage] = useState('');
-  //   //             // const [source, setSource] = useState('');
-  //   //             // const [ingredientLines, setIngredientLines] = useState();
-  //   //             // const [uri, setUri] = useState();
-
-  //   //             // const [url, setUrl] = useState();
-  //   //             // const [healthLabels, setHealthLabels] = useState();
-               
-  //   //             setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
-  //   //           }
-
-  //   //       });
-          
-  //   //       // setListRecipe((oldArray) => [...oldArray,])
-  //   //   })
-  //   // }
-
-  //   const fetchData = () =>{
-  //   //   console.log('executed')
-  //   //   // setListRecipe([]);
-  //   //   // setListRecipe([]);
-  //   //   onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
-  //   //     const data = snapshot.val();
-  //   //     setListRecipe([]);  
-  //   //     if (data !== null) {
-  //   //       // setListRecipe([]);
-          
-  //   //       Object.values(data).map((recipeID) => {
-  //   //           // ngano ga double tungod aning fetch
-  //   //           fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${recipeID.recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
-  //   //           .then((response) => response.json())
-  //   //           .then((data) =>{
-
-  //   //             console.log(recipeID.likedRecipeId);
-  //   //             console.log('---------------------------------');
-  //   //               data.hits.forEach(element => {
-                    
-  //   //                   let likedRecipeIdAPI = element.recipe.uri.split('#')[1];
-  //   //                   if(likedRecipeIdAPI === recipeID.likedRecipeId){
-  //   //                     console.log(likedRecipeIdAPI+' '+ recipeID.likedRecipeId);
-
-  //   //                   //   setLabel(element.recipe.label) ;
-  //   //                   //   setMealType(element.recipe.mealType);
-  //   //                   //   setImage(element.recipe.image);
-  //   //                   //   setSource(element.recipe.source);
-  //   //                   //   setIngredientLines(element.recipe.ingredientLines);
-  //   //                   //   setUri(element.recipe.uri);
-  //   //                   //   setUrl(element.recipe.url);
-  //   //                   //   setHealthLabels(element.recipe.healthLabels);
-        
-  //   //                   //   // const [label, setLabel] = useState('');
-  //   //                   //   // const [mealType, setMealType] = useState('');;
-  //   //                   //   // const [image, setImage] = useState('');
-  //   //                   //   // const [source, setSource] = useState('');
-  //   //                   //   // const [ingredientLines, setIngredientLines] = useState();
-  //   //                   //   // const [uri, setUri] = useState();
-        
-  //   //                   //   // const [url, setUrl] = useState();
-  //   //                   //   // const [healthLabels, setHealthLabels] = useState();
-                       
-  //   //                   setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
-  //   //                   }
-        
-  //   //               });
-                  
-  //   //               // setListRecipe((oldArray) => [...oldArray,])
-  //   //           })
-  //   //         } 
-  //   //       )
-          
-  //   //     }
-  //   //   });
-  //   // }
-
-  //   // fetchData();
-  //   console.log('executed')
-  //   // setListRecipe([]);
-  //   // setListRecipe([]);
-  //   onValue(ref(db, `userLikedRecipe/${userID}`), (snapshot) => {
-  //     const data = snapshot.val();
-  //     if (data !== null) {
-  //       // setListRecipe([]);
-        
-  //       Object.values(data).map((recipeID) => {
-  //           // ngano ga double tungod aning fetch
-  //           console.log(recipeID.likedRecipeId);
-  //           fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${recipeID.recipeNameDashboard}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
-  //           .then((response) => response.json())
-  //           .then((data) =>{
-
-  //             console.log(recipeID.likedRecipeId);
-  //             console.log('---------------------------------');
-  //               data.hits.forEach(element => {
-                  
-  //                   let likedRecipeIdAPI = element.recipe.uri.split('#')[1];
-  //                   if(likedRecipeIdAPI === recipeID.likedRecipeId){
-  //                     console.log(likedRecipeIdAPI+' '+ recipeID.likedRecipeId);
-
-  //                   //   setLabel(element.recipe.label) ;
-  //                   //   setMealType(element.recipe.mealType);
-  //                   //   setImage(element.recipe.image);
-  //                   //   setSource(element.recipe.source);
-  //                   //   setIngredientLines(element.recipe.ingredientLines);
-  //                   //   setUri(element.recipe.uri);
-  //                   //   setUrl(element.recipe.url);
-  //                   //   setHealthLabels(element.recipe.healthLabels);
-      
-  //                   //   // const [label, setLabel] = useState('');
-  //                   //   // const [mealType, setMealType] = useState('');;
-  //                   //   // const [image, setImage] = useState('');
-  //                   //   // const [source, setSource] = useState('');
-  //                   //   // const [ingredientLines, setIngredientLines] = useState();
-  //                   //   // const [uri, setUri] = useState();
-      
-  //                   //   // const [url, setUrl] = useState();
-  //                   //   // const [healthLabels, setHealthLabels] = useState();
-                     
-  //                   setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
-  //                   }
-      
-  //               });
-                
-  //               // setListRecipe((oldArray) => [...oldArray,])
-  //           })
-  //         } 
-  //       )
-        
-  //     } else{
-  //       console.log('walay data lugar ?')
-  //     }
-  //   });
-  // }
-    
-
-  // },[]);
 
 
   useEffect(() =>{
@@ -506,6 +381,10 @@ function Profile() {
 
         {showLoader && 
           <Loader/>
+        }
+
+        { showToast &&
+            <ToastContainer/>
         }
 
         

@@ -50,7 +50,7 @@ function Login() {
           notify();
           setClickSignIn(false);
         }
-      }, [clickSignIn, toastText]);
+    }, [clickSignIn, toastText]);
 
     const login = (e) =>{
         e.preventDefault();

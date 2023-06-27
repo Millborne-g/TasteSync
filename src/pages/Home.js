@@ -15,10 +15,11 @@ import {db} from '../firebase';
 import {uid} from 'uid'; 
 import { onValue, ref, remove, set, update } from 'firebase/database';
 
+
 function Home() {
     const cookies = new Cookies();
     const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
-    const [searchInput, setSearchInput] = useState('salad');
+    const [searchInput, setSearchInput] = useState();
     const [recipeImageDashboard, setRecipeImageDashboard] = useState('');
     const [recipeNameDashboard, setRecipeNameDashboard] = useState('');
     const [recipeAuthorDashboard, setRecipeAuthorDashboard] = useState('');
@@ -89,7 +90,7 @@ function Home() {
         <div className='dashboard-inner container'>
             <div className="navbarMealPlanDashboard">
                 <div className='headerMealPlanDashboard-inner'>
-                    <span className='headerMealPlanRecipe'>Discover People's <span className='highlightMealPlanRecipe'>Meal Journey</span></span>
+                    <span className='headerMealPlanRecipe'>Discover People's <span className='highlightMealPlanRecipe'>Favorites</span></span>
                 </div>
             </div>
             <PeopleStory />

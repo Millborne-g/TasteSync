@@ -3,7 +3,7 @@ import React from 'react'
 function PeopleStoryCard({story, storyShow}) {
   return (
     <>
-        <div className='mealPlanStoryContainer' onClick={()=>storyShow(story[0], story[2], story[6], story[7], story[4])}>
+        <div className='mealPlanStoryContainer' onClick={()=>storyShow(story[0], story[2], story[6], story[7], story[4], story[5], story[1])}>
           <div className='mealPlanStoryContainer-inner'>
             <div className='mealPlanStoryImageContainer'>
               <div className='mealPlanStoryUserContainer'>
