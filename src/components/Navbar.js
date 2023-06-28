@@ -64,7 +64,7 @@ function Navbar() {
                           <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
                               <Dropdown.Item href={`/${userID}`}>Profile</Dropdown.Item>
                               <hr className="dropdown-divider"/>
-                              <Dropdown.Item onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</Dropdown.Item>
+                              <Dropdown.Item onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('https://tastesync.vercel.app/', '_self');}}>Logout</Dropdown.Item>
                           </Dropdown.Menu>
                         </Dropdown>
                         {/* <li className="nav-item dropdown">
