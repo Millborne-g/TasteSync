@@ -2,7 +2,10 @@ import React, {useState, useEffect} from 'react';
 import heroImage from '../assets/hero-image.svg';
 import heartIcon from '../assets/heart-icon.svg'
 import heartIconFilled from '../assets/heart-filled-icon.svg';
-import searchIcon from '../assets/search-icon.svg'
+import searchIcon from '../assets/search-icon.svg';
+import card1 from '../assets/card-1.svg';
+import card2 from '../assets/card-2.svg';
+
 import Cookies from 'universal-cookie';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
@@ -15,6 +18,9 @@ import { Dropdown, Button, Modal  } from 'react-bootstrap';
 import {db} from '../firebase';
 import {uid} from 'uid'; 
 import { onValue, ref, remove, set, update } from 'firebase/database';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 
 function Home() {
@@ -34,6 +40,11 @@ function Home() {
     const [clickSearch, setClickSearch] = useState(false);
 
     const [getDataCounter, setGetDataCouter] = useState(0);
+
+    useEffect(() => {
+        AOS.init();
+    }, [])
+
 
     useEffect(() => {
         document.title = 'TasteSync';
@@ -188,10 +199,10 @@ function Home() {
             <div className="row headline-inner-row">
                 <div className="col heroHeadlines">
                     <div className="heroHeadlinesInner">
-                        <span className='headline'>Elevate Your Meals with Inspiring <span className='headlineHighlight'>Recipes</span> </span>
-                        <span className='subHeadline'>Explore new tastes, collect beloved recipes, and share them within the community.</span>
+                        <span className='headline' data-aos="fade-right" data-aos-delay="1000" >Elevate Your Meals with Inspiring <span className='headlineHighlight'>Recipes</span> </span>
+                        <span className='subHeadline' data-aos="fade-right" data-aos-delay="1300">Explore new tastes, collect beloved recipes, and share them within the community.</span>
                         <div className='buttonContainer'>
-                        <a className="getStartedBtn" href='./signup'>Get Started</a>
+                        <a className="getStartedBtn" href='./signup' data-aos="fade-right" data-aos-delay="1600">Get Started</a>
                             <div>
                                 {/* <form className="input-group mb-3 buttonContainer-inner" onSubmit={(e) => {e.preventDefault(); setEmailAdd(emailAdd); window.location.href = '/signup'; }}>
                                     <input type="text" className="form-control emailInput" placeholder="Enter your email..." aria-label="Recipient's username" aria-describedby="button-addon2" value={emailAdd} onChange={(e) => setEmailAdd(e.target.value)}/>
@@ -201,9 +212,11 @@ function Home() {
                         </div>
                     </div>
                 </div>
-                <div className="col heroImageContainer">
-                    <div className="heroImageContainerInner">
+                <div className="col heroImageContainer" >
+                    <div className="heroImageContainerInner" data-aos="fade-up" data-aos-delay="1900">
                         <img className='heroImage' src={heroImage} />
+                        <img className='card1' data-aos="fade-up-right" data-aos-delay="2300" src={card1}/>
+                        <img className='card2' data-aos="fade-up-left" data-aos-delay="2600" src={card2}/>
                     </div>
                 </div>
             </div>

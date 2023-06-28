@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function RecipeCard({recipeName, recipeNumberIngredients, recipeImage, recipeSource, recipeIngredients, recipeUri, recipeUrl, recipeHealthBenifits, openRecipeModal}) {
   return (

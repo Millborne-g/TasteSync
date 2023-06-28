@@ -193,7 +193,7 @@ code {
 }
 
 .getStartedBtn{
-  transition: .3s ease-in-out;
+  transition: .5s ease-in-out;
   width: 186px;
   height: 68px;
   display: flex;
@@ -211,7 +211,7 @@ code {
 .getStartedBtn:hover{
   cursor: pointer;
   background-color: #de2b2b;
-  transition: .3s ease-in-out;
+  transition: .5s ease-in-out;
   box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
 
 }
@@ -223,6 +223,23 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.heroImageContainerInner{
+  /* background-color: #0066FF; */
+  position: absolute;
+}
+
+.card1{
+  position: absolute;
+  left: 6%;
+  top: 30%;
+}
+
+.card2{
+  position: absolute;
+  right: 6%;
+  top: 30%;
 }
 
 .heroImage{
@@ -1319,7 +1336,7 @@ code {
 }
 
 /* mobile */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .navloginContiner{
 
     display: none;

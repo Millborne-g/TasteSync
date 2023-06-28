@@ -5,13 +5,19 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {db,storage} from '../firebase';
 import { onValue, ref, remove, set, update } from 'firebase/database';
 import Cookies from 'universal-cookie';
-import { Dropdown, Button, Modal  } from 'react-bootstrap';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function Navbar() {
   const cookies = new Cookies();
   const [userID, setUserID] = useState(localStorage.getItem("jwt_autorization"));
   const [userName, setUserName] = useState('');
   const [userImage, setUserImage] = useState('');
+
+  useEffect(() => {
+    AOS.init();
+  }, [])
+
 
   useEffect(() =>{
     if(userID){
@@ -40,37 +46,26 @@ function Navbar() {
         <header>
         <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary">
             <div className="container">
-                <a className="navbar-brand" href="http://localhost:3000/">
+                <a className="navbar-brand" data-aos="fade-down" data-aos-delay="300" href="http://localhost:3000/">
                     <img className='logoImg' src={logo} alt="" />
                     <span className='logoName'>Taste<span className='logoNameHighlight'>Sync</span></span> 
                 </a>
                 
-                <div className="justify-content-end" id="navbarSupportedContent">
+                <div className="justify-content-end" data-aos="fade-down" data-aos-delay="600"id="navbarSupportedContent">
                     <ul className="navbar-nav">
                       {userID ? 
                       <>
-                        <Dropdown className='userDropdownNavbar'>
-                           <Dropdown.Toggle variant="btn" id="navbarDropdownMenuLink">
-                              <img className='userImageProfileNavbar' src={userImage} alt="" />
-                              <span className='userNameDashboardNavbar'>{userName}</span>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
-                              <Dropdown.Item href={`/${userID}`}>Profile</Dropdown.Item>
-                              <hr className="dropdown-divider"/>
-                              <Dropdown.Item onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</Dropdown.Item>
-                            </Dropdown.Menu>
-                        </Dropdown>
-                        {/* <li className="nav-item dropdown">
+                        <li className="nav-item dropdown">
                           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img className='userImageProfileNavbar' src={userImage} alt="" />
                             <span className='userNameDashboardNavbar'>{userName}</span>
                           </a>
-                          <ul className="dropdown-menu dropdown-menu-right userDropdownMenu" data-bs-popper="none">
+                          <ul className="dropdown-menu">
                             <li><a className="dropdown-item" href={`/${userID}`}>Profile</a></li>
                             <hr className="dropdown-divider"/>
                             <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</a></li>
                           </ul>
-                        </li> */}
+                        </li>
                       </>
                         : 
                         <>

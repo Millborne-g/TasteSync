@@ -5,6 +5,8 @@ import {uid} from 'uid';
 import { onValue, ref, remove, set, update } from 'firebase/database';
 import Cookies from 'universal-cookie';
 import RecipeCard from './RecipeCard';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecipeImageDashboard, setRecipeAuthorDashboard, setRecipeIngredientsDashboard, setRecipeIdLinkDashboard, setRecipeURLDashboard, setRecipeHealthBenifitsDashboard, clickSearch, setClickSearch}) {
     const cookies = new Cookies();
@@ -21,6 +23,10 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
     const records = listRecipe.slice(firstIndex, lastIndex);
     const npage = Math.ceil(listRecipe.length/recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
+
+    useEffect(() => {
+        AOS.init();
+    }, [])
 
     useEffect(()=>{
         let commonIngredients = [
@@ -122,9 +128,9 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
     
   return (
     <>
-    <div className='RecipeDashboardContainer'>
+    <div className='RecipeDashboardContainer' data-aos="fade-up"> 
       {records.map((recipe, index)=>(
-            <RecipeCard key={index} recipeName={recipe.recipe.label} recipeNumberIngredients={recipe.recipe.mealType} recipeImage={recipe.recipe.image} recipeSource={recipe.recipe.source} recipeIngredients={recipe.recipe.ingredientLines} recipeUri={recipe.recipe.uri} recipeUrl={recipe.recipe.url} recipeHealthBenifits={recipe.recipe.healthLabels} openRecipeModal={openRecipeModal}/>
+            <RecipeCard key={index}  recipeName={recipe.recipe.label} recipeNumberIngredients={recipe.recipe.mealType} recipeImage={recipe.recipe.image} recipeSource={recipe.recipe.source} recipeIngredients={recipe.recipe.ingredientLines} recipeUri={recipe.recipe.uri} recipeUrl={recipe.recipe.url} recipeHealthBenifits={recipe.recipe.healthLabels} openRecipeModal={openRecipeModal}/>
         ))
       }
     </div>
