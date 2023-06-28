@@ -1268,6 +1268,10 @@ code {
   .userNameDashboardNavbar{
     display: none;
   }
+  .navloginContiner{
+
+    display: none;
+  }
   /* end Navbar */
 
   .headline{
@@ -1339,10 +1343,3 @@ code {
 
 }
 
-/* mobile */
-@media screen and (max-width: 570px) {
-  .navloginContiner{
-
-    display: none;
-  }
-}
