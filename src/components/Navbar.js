@@ -2,6 +2,7 @@ import React, { useEffect, Dispatch, SetStateAction, useState } from 'react';
 import logo from '../assets/logo.png';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import { Dropdown, Button, Modal  } from 'react-bootstrap';
 import {db,storage} from '../firebase';
 import { onValue, ref, remove, set, update } from 'firebase/database';
 import Cookies from 'universal-cookie';
@@ -55,7 +56,18 @@ function Navbar() {
                     <ul className="navbar-nav">
                       {userID ? 
                       <>
-                        <li className="nav-item dropdown">
+                        <Dropdown>
+                          <Dropdown.Toggle variant="btn" id="navbarDropdownMenuLink">
+                            <img className='userImageProfileNavbar' src={userImage} alt="" />
+                            <span className='userNameDashboardNavbar'>{userName}</span>
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
+                              <Dropdown.Item href={`/${userID}`}>Profile</Dropdown.Item>
+                              <hr className="dropdown-divider"/>
+                              <Dropdown.Item onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                        {/* <li className="nav-item dropdown">
                           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img className='userImageProfileNavbar' src={userImage} alt="" />
                             <span className='userNameDashboardNavbar'>{userName}</span>
@@ -65,7 +77,7 @@ function Navbar() {
                             <hr className="dropdown-divider"/>
                             <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</a></li>
                           </ul>
-                        </li>
+                        </li> */}
                       </>
                         : 
                         <>
