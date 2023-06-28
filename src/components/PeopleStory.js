@@ -30,47 +30,47 @@ function PeopleStory() {
       console.log('Returning user'+getDataCounter);  
 
       if(getDataCounter>0){
-      const currentDate = new Date();
-      const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-        hour12: true
-      };
+        const currentDate = new Date();
+        const options = {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          hour12: true
+        };
 
-      
-      onValue(ref(db, '/userStory'), (snapshot) => {
+        
+        onValue(ref(db, '/userStory'), (snapshot) => {
 
-        const data = snapshot.val();
-        if (data !== null) {
-          setStoryList([]);
-          const reversedData = Object.values(data).reverse();
-          reversedData.forEach((story) => {
-            console.log('storyID is here '+story.userID);
-            const dateToday = new Intl.DateTimeFormat('en-US', options).format(currentDate);
-            if (dateToday !== story.formattedNextDate) {
-              setStoryList((oldArray) => [
-                ...oldArray,
-                [
-                  story.caption,
-                  story.dateID,
-                  story.formattedDate,
-                  story.imageLinkURL,
-                  story.recipes,
-                  story.userID,
-                  story.userNameDB,
-                  story.userImageDB
-                ]
-              ]);
-            } else {
-              remove(ref(db, `userStory/${story.dateID}`));
-            }
-          });
+          const data = snapshot.val();
+          if (data !== null) {
+            setStoryList([]);
+            const reversedData = Object.values(data).reverse();
+            reversedData.forEach((story) => {
+              console.log('storyID is here '+story.userID);
+              const dateToday = new Intl.DateTimeFormat('en-US', options).format(currentDate);
+              if (dateToday !== story.formattedNextDate) {
+                setStoryList((oldArray) => [
+                  ...oldArray,
+                  [
+                    story.caption,
+                    story.dateID,
+                    story.formattedDate,
+                    story.imageLinkURL,
+                    story.recipes,
+                    story.userID,
+                    story.userNameDB,
+                    story.userImageDB
+                  ]
+                ]);
+              } else {
+                remove(ref(db, `userStory/${story.dateID}`));
+              }
+            });
 
-        }
-      });
+          }
+        });
     }
 
 

@@ -12,7 +12,7 @@ export default function Loader() {
               <LineWave
                   height="100"
                   width="100"
-                  color="#000000"
+                  color="#EB5757"
                   wrapperStyle={{ position: "relative", top: "50%", left: "50%", transform: "translate(-32%, -10%)"}}
                 />
             </div>

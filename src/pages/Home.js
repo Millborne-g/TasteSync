@@ -32,6 +32,8 @@ function Home() {
     const [clickLike, setClickLike] = useState(false);
     const [clickSearch, setClickSearch] = useState(false);
 
+    const [getDataCounter, setGetDataCouter] = useState(0);
+
     const handleRecipeClose = () => {
         setShowRecipeModal(false);
     };
@@ -111,12 +113,7 @@ function Home() {
                     
                 </div>
             </div>
-            
             <RecipeList searchInput={searchInput} setRecipeNameDashboard={setRecipeNameDashboard} handleRecipeShow={handleRecipeShow} setRecipeImageDashboard={setRecipeImageDashboard} setRecipeAuthorDashboard={setRecipeAuthorDashboard} setRecipeIngredientsDashboard={setRecipeIngredientsDashboard} setRecipeIdLinkDashboard={setRecipeIdLinkDashboard} setRecipeURLDashboard={setRecipeURLDashboard} setRecipeHealthBenifitsDashboard={setRecipeHealthBenifitsDashboard} clickSearch={clickSearch} setClickSearch={setClickSearch}/>
-
-            
-            
-
         </div>
         <Modal show={showRecipeModal} onHide={handleRecipeClose} centered>
             <Modal.Header closeButton>
