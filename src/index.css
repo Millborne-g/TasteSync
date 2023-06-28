@@ -1313,3 +1313,10 @@ code {
   /* end User Dashboard */
 
 }
+
+/* mobile */
+@media screen and (max-width: 450px) {
+  .navloginContiner{
+    display: none;
+  }
+}
