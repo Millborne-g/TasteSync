@@ -31,7 +31,7 @@ function Login() {
 
     useEffect(()=>{
         if(userID){
-          window.open('http://localhost:3000/', '_self');
+          window.open('https://tastesync.vercel.app/', '_self');
         }
     },[userID])
 
@@ -104,7 +104,7 @@ function Login() {
                         cookies.set("jwt_autorization",idTemp);
                         cookies.set("userEmail",email);
                         localStorage.setItem("jwt_autorization",idTemp);
-                        window.open('http://localhost:3000/', '_self');
+                        window.open('https://tastesync.vercel.app/', '_self');
                         
                     },3000);
                 } 
@@ -149,7 +149,7 @@ function Login() {
                     setShowToast(true);
                     setToastText("Email don't exist.");
                     setTimeout(() =>{
-                        window.open('http://localhost:3000/login', '_self');
+                        window.open('https://tastesync.vercel.app/login', '_self');
                     },3000)
                     
                 } 
@@ -170,7 +170,7 @@ function Login() {
                         cookies.set("userEmail",email);
                         localStorage.setItem("jwt_autorization",idTemp)
                         // window.location.href = 'http://localhost:3000/';
-                        window.open('http://localhost:3000/', '_self');
+                        window.open('https://tastesync.vercel.app/', '_self');
                         // setSignInLoader(false);
                         
                     },3000);
@@ -229,7 +229,7 @@ function Login() {
             </div> */}
             <nav className="navbarLogin">
                 <div className="container">
-                    <a className="navbar-brand" href="http://localhost:3000/">
+                    <a className="navbar-brand" href="https://tastesync.vercel.app/">
                         <img className='logoImg' src={logo} alt="" />
                         {/* <span className='logoName'>SocialHub</span>  */}
                     </a>

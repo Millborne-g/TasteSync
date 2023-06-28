@@ -55,7 +55,7 @@ function Signup() {
 
     useEffect(()=>{
       if(userID){
-        window.open('http://localhost:3000/', '_self');
+        window.open('https://tastesync.vercel.app/', '_self');
       }
     },[userID])
 

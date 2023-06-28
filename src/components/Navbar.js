@@ -46,7 +46,7 @@ function Navbar() {
         <header>
         <nav className="navbar fixed-top navbar-expand-lg bg-body-tertiary">
             <div className="container">
-                <a className="navbar-brand" data-aos="fade-down" data-aos-delay="300" href="http://localhost:3000/">
+                <a className="navbar-brand" data-aos="fade-down" data-aos-delay="300" href="https://tastesync.vercel.app/">
                     <img className='logoImg' src={logo} alt="" />
                     <span className='logoName'>Taste<span className='logoNameHighlight'>Sync</span></span> 
                 </a>

@@ -68,7 +68,7 @@ function Profile() {
 
   useEffect(()=>{
     if(!userID){
-      window.open('http://localhost:3000/', '_self');
+      window.open('https://tastesync.vercel.app/', '_self');
     }
   },[userID])
 
@@ -219,12 +219,12 @@ function Profile() {
         });
         setShowRecipeModal(false);
         setListRecipe([]);
-        window.open(`http://localhost:3000/${userID}`, '_self');
+        window.open(`https://tastesync.vercel.app/${userID}`, '_self');
     } else{
         remove(ref(db, `userLikedRecipe/${userID}/${likedRecipeId}`));
         setShowRecipeModal(false);
         setListRecipe([]);
-        window.open(`http://localhost:3000/${userID}`, '_self');
+        window.open(`https://tastesync.vercel.app/${userID}`, '_self');
     }
     
 
