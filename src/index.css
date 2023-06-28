@@ -193,6 +193,7 @@ code {
 }
 
 .getStartedBtn{
+  transition: .3s ease-in-out;
   width: 186px;
   height: 68px;
   display: flex;
@@ -1318,7 +1319,7 @@ code {
 }
 
 /* mobile */
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
   .navloginContiner{
 
     display: none;
