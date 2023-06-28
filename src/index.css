@@ -1219,9 +1219,7 @@ code {
     right: 0;
   }
 
-  /* end Navbar */
-
-  .navloginContiner{
+  .navlogInContainer{
     display: none;
   }
 
@@ -1229,9 +1227,12 @@ code {
     display: none;
   }
 
+  /* end Navbar */
+
   .logInSignUpBtnContainer{
     display: flex;
   }
+
   .logInSignUpBtnContainer-inner{
     
   }
@@ -1266,10 +1267,6 @@ code {
 
   /* Navbar */
   .userNameDashboardNavbar{
-    display: none;
-  }
-  .navloginContiner{
-
     display: none;
   }
   /* end Navbar */
@@ -1341,5 +1338,11 @@ code {
   }
   /* end User Dashboard */
 
+}
+
+@media screen and (max-width: 380px) {
+  .navlogInContainerBackUp{
+    display: none;
+  }
 }
 

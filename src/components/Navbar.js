@@ -69,7 +69,7 @@ function Navbar() {
                       </>
                         : 
                         <>
-                          <li className="nav-item navloginContiner">
+                          <li className="nav-item navlogInContainer">
                             <span className="nav-link"><a className='navlogin' href="/login">Log in</a></span>
                           </li>
                           <li className="nav-item navSignUpContiner">
@@ -77,12 +77,12 @@ function Navbar() {
                             {/* onClick={() => {setShowNavbar(false)}} */}
                           </li>
                           <div className='logInSignUpBtnContainer'>
-                            <li className="nav-item">
+                            <li className="nav-item navlogInContainerBackUp">
                               <span className="nav-link"><a className='navlogin' href="/login">Log in</a></span>
                             </li>
                             <li className="nav-item">
                               <a type="button" className="btn btn-primary" href="/signup"><span className='navSignUp'>Sign up</span></a>
-                              {/* onClick={() => {setShowNavbar(false)}} */}
+                              
                             </li>
                           </div>
                         </>
