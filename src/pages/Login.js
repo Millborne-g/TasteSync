@@ -25,6 +25,10 @@ function Login() {
     const [toastText,setToastText] = useState('');
     const [clickLogInGoogle, setClickLogInGoogle] = useState(false);
 
+    useEffect(() => {
+        document.title = 'TasteSync | Log in';
+      }, []);
+
     useEffect(()=>{
         if(userID){
           window.open('http://localhost:3000/', '_self');
@@ -96,8 +100,6 @@ function Login() {
                 else if(foundEmail===true && foundPassword===true){
                     setSignInLoader(true);
                     setTimeout(() => {
-                        console.log('yeeey sulod naka');
-                        console.log('mao ning id '+ idTemp);
                         setSignInLoader(false);
                         cookies.set("jwt_autorization",idTemp);
                         cookies.set("userEmail",email);
@@ -164,8 +166,6 @@ function Login() {
                 else if(foundEmail && foundPassword){
                     setSignInLoader(true);
                     setTimeout(() => {
-                        console.log('yeeey sulod naka');
-                        console.log('mao ning id '+ idTemp);
                         cookies.set("jwt_autorization",idTemp);
                         cookies.set("userEmail",email);
                         localStorage.setItem("jwt_autorization",idTemp)
@@ -199,7 +199,7 @@ function Login() {
             .then(response => response.json())
             .then(data => {
               // setSignUpLoader(true);
-              console.log(data); // Access the response data here
+            //   console.log(data); // Access the response data here
               
               setEmail(data.email);
             //   cookies.set("jwt_autorization",apiUrl);

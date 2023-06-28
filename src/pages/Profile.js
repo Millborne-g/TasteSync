@@ -62,6 +62,10 @@ function Profile() {
   const [imageLinkURL, setImageLinkURL] = useState('');
   const [showLoader, setShowLoader] = useState(false);
 
+  useEffect(() => {
+    document.title = 'TasteSync';
+  }, []);
+
   useEffect(()=>{
     if(!userID){
       window.open('http://localhost:3000/', '_self');

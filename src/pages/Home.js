@@ -35,6 +35,10 @@ function Home() {
 
     const [getDataCounter, setGetDataCouter] = useState(0);
 
+    useEffect(() => {
+        document.title = 'TasteSync';
+      }, []);
+
     const handleRecipeClose = () => {
         setShowRecipeModal(false);
     };

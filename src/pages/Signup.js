@@ -36,6 +36,10 @@ function Signup() {
     const [clickSignUp, setClickSignUp] = useState(false);
     const [signUpLoader, setSignUpLoader] = useState(false);
 
+    useEffect(() => {
+      document.title = 'TasteSync | Sign up';
+    }, []);
+
     const customId = "custom-id-password";
     const notify = () => toast.error(toastText, {
       position: "top-center",
@@ -71,7 +75,7 @@ function Signup() {
       const uuid = uid();
       let idTemp = '';
       let emailExist = false;
-      console.log('fullname '+ name);
+      // console.log('fullname '+ name);
       let nameSplit = name.split(' ')[0];
       if (email !== ''){
         // loadDB
@@ -121,7 +125,7 @@ function Signup() {
             setToastText("Email already exist!");
             
             setToastConfirmPassword(true);
-            console.log(clickSignUp+' '+toastText)
+            // console.log(clickSignUp+' '+toastText)
           }
         });  
       }
@@ -162,7 +166,7 @@ function Signup() {
       //   setName(fName+' '+lName);
       // }
       // setName(fName+' '+lName);
-      console.log('fullname '+ name);
+      // console.log('fullname '+ name);
       let nameSplit = name.split(' ')[0];
       if (email !== ''){
         // loadDB
@@ -175,6 +179,7 @@ function Signup() {
               let userEmail = user.email;
               if (userEmail === email){
                 emailExist=true;
+                idTemp = user.ID;
                 setSignUpGoogle(false);
                 
               }
@@ -184,7 +189,7 @@ function Signup() {
             setSignUpLoader(true);
             
             setTimeout(() => {
-              console.log('saving '+emailExist);
+              
               
               set(ref(db, `/users/${uuid+nameSplit}`), {
                 imageLink,
@@ -209,20 +214,14 @@ function Signup() {
             // 
             
           } else{
-            // inputUserEmailElement?.classList.add('is-invalid');
-            // setSignUpLoader(false);
-            // setToastText("Email already exist!");
-            
-            // setToastConfirmPassword(true);
-            // console.log(clickSignUp+' '+toastText)
-            setSignUpLoader(true);
-            cookies.set("jwt_autorization",uuid+nameSplit);
-            cookies.set("userEmail",email);
-            localStorage.setItem("jwt_autorization",uuid+nameSplit);
-            // setTimeout(() =>{
-            //   localStorage.setItem('userID', idTemp);
-            //   setUserID(localStorage.getItem('userID')??'');
-            // }, 3000)
+
+            setTimeout(() =>{
+              setSignUpLoader(true);
+              cookies.set("jwt_autorization",idTemp);
+              cookies.set("userEmail",email);
+              localStorage.setItem("jwt_autorization",idTemp);
+              setUserID(cookies.get('userEmail'));
+            }, 3000)
           }
         });  
       }
@@ -242,7 +241,7 @@ function Signup() {
           .then(response => response.json())
           .then(data => {
             // setSignUpLoader(true);
-            console.log(data); // Access the response data here
+            // console.log(data); // Access the response data here
             
             setEmail(data.email);
             setName(data.name);
