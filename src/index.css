@@ -1269,6 +1269,13 @@ code {
   }
   /* end Navbar */
 
+  /* footer */
+  .footer{
+    padding: 1.2% 0;
+    /* background-color: #0066FF; */
+  }
+  /* end footer */
+
   .headline{
     font-size: 40px;
     line-height: 49px;
