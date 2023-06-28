@@ -185,9 +185,9 @@ function Home() {
                 <div className="col heroHeadlines">
                     <div className="heroHeadlinesInner">
                         <span className='headline'>Elevate Your Meals with Inspiring <span className='headlineHighlight'>Recipes</span> </span>
-                        <span className='subHeadline'>Discover a Treasury of Delicious and Nutritious Recipes to Enhance Your Healthy Lifestyle Journey</span>
+                        <span className='subHeadline'>Explore new tastes, collect beloved recipes, and share them within the community.</span>
                         <div className='buttonContainer'>
-                        <a className="getStartedBtn" href='./login'>Get Started</a>
+                        <a className="getStartedBtn" href='./signup'>Get Started</a>
                             <div>
                                 {/* <form className="input-group mb-3 buttonContainer-inner" onSubmit={(e) => {e.preventDefault(); setEmailAdd(emailAdd); window.location.href = '/signup'; }}>
                                     <input type="text" className="form-control emailInput" placeholder="Enter your email..." aria-label="Recipient's username" aria-describedby="button-addon2" value={emailAdd} onChange={(e) => setEmailAdd(e.target.value)}/>
@@ -207,7 +207,7 @@ function Home() {
         </div>
 
         <div className='footer'>
-            <span> © 2023 NutriChef | <a className='portfolioLink' href="https://millborneportfolio.vercel.app/" target="_blank">Millborne Galamiton.</a> All rights reserved.</span>
+            <span> © 2023 TasteSync | <a className='portfolioLink' href="https://millborneportfolio.vercel.app/" target="_blank">Millborne Galamiton.</a> All rights reserved.</span>
         </div>
     </section>
     

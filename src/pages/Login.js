@@ -113,13 +113,10 @@ function Login() {
         } 
         else{
             setSignInLoader(false);
-            console.log('nilabay ko');
         }
     }
 
     const logInWithGoogleNextPage = () =>{
-        console.log('Next Page!!');
-        // e.preventDefault();
         setSignInLoader(true);
         setClickSignIn(true);
         let idTemp = '';
@@ -148,8 +145,7 @@ function Login() {
                     idTemp = '';
                     inputEmailElement?.classList.add('is-invalid');
                     setShowToast(true);
-                    setToastText("Email don't exist.")
-                    // history.replaceState(null, document.title, window.location.href);
+                    setToastText("Email don't exist.");
                     setTimeout(() =>{
                         window.open('http://localhost:3000/login', '_self');
                     },3000)
@@ -245,7 +241,7 @@ function Login() {
             <div className="card logInCard">
                 <div className="card-body">
                     <div className="login-container">
-                        <span className='loginContainerText'>Welcome to NutriPlan</span>
+                        <span className='loginContainerText'>Welcome to TasteSync</span>
                     </div>
                     <form onSubmit={(e)=>{login(e)}}>
                         <div className="form-group textFields">

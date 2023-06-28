@@ -150,6 +150,9 @@ function Profile() {
         if (data !== null) {
           userNameDB=data.name;
           userImageDB = data.imageLink;
+          if(data.imageLink === ''){
+            userImageDB='http://drive.google.com/uc?export=view&id=1KZ9F0m3bKZ2pXAvspPOLIWT7eKKj0aGM';
+          }
         }
       })
         set(ref(db, `/userStory/${formattedTitleDateTime}_${uuid}`), {
@@ -195,7 +198,7 @@ function Profile() {
         });
     } else {
       setImageLinkURL(
-        "http://drive.google.com/uc?export=view&id=1ByrmsfllxPY095bp3B2XULp1rXvaed27"
+        "http://drive.google.com/uc?export=view&id=1cejoJ7kScSvWTJVhSlF9CAOvI8MbITEU"
       );
     }
   };
@@ -236,7 +239,7 @@ function Profile() {
         )
         
       } else{
-        console.log('walay data lugar ?')
+        console.log('')
       }
     });
   },[])
@@ -274,7 +277,7 @@ function Profile() {
         <div className='dashboard-inner container'>
           <div className="navbarMealPlanDashboard">
                 <div className='headerMealPlanDashboard-inner'>
-                    <span className='headerMealPlanRecipe'>Activity <span className='highlightMealPlanRecipe'>Timeline</span></span>
+                    <span className='headerMealPlanRecipe'>My <span className='highlightMealPlanRecipe'>Activities</span></span>
                 </div>
             </div>
             

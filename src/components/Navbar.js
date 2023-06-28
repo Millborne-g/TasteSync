@@ -5,6 +5,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import {db,storage} from '../firebase';
 import { onValue, ref, remove, set, update } from 'firebase/database';
 import Cookies from 'universal-cookie';
+import { Dropdown, Button, Modal  } from 'react-bootstrap';
 
 function Navbar() {
   const cookies = new Cookies();
@@ -41,37 +42,54 @@ function Navbar() {
             <div className="container">
                 <a className="navbar-brand" href="http://localhost:3000/">
                     <img className='logoImg' src={logo} alt="" />
-                    <span className='logoName'>NutriPlan</span> 
+                    <span className='logoName'>Taste<span className='logoNameHighlight'>Sync</span></span> 
                 </a>
                 
-                {/* <button classNameName="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    
-                </button> */}
                 <div className="justify-content-end" id="navbarSupportedContent">
                     <ul className="navbar-nav">
                       {userID ? 
                       <>
-                        <li className="nav-item dropdown">
+                        <Dropdown className='userDropdownNavbar'>
+                           <Dropdown.Toggle variant="btn" id="navbarDropdownMenuLink">
+                              <img className='userImageProfileNavbar' src={userImage} alt="" />
+                              <span className='userNameDashboardNavbar'>{userName}</span>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu aria-labelledby="navbarDropdownMenuLink">
+                              <Dropdown.Item href={`/${userID}`}>Profile</Dropdown.Item>
+                              <hr className="dropdown-divider"/>
+                              <Dropdown.Item onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</Dropdown.Item>
+                            </Dropdown.Menu>
+                        </Dropdown>
+                        {/* <li className="nav-item dropdown">
                           <a className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <img className='userImageProfileNavbar' src={userImage} alt="" />
                             <span className='userNameDashboardNavbar'>{userName}</span>
                           </a>
-                          <ul className="dropdown-menu">
+                          <ul className="dropdown-menu dropdown-menu-right userDropdownMenu" data-bs-popper="none">
                             <li><a className="dropdown-item" href={`/${userID}`}>Profile</a></li>
                             <hr className="dropdown-divider"/>
                             <li><a className="dropdown-item" onClick={() => {localStorage.setItem('userID', ''); cookies.remove('jwt_autorization'); cookies.remove('userEmail'); localStorage.removeItem('jwt_autorization'); window.open('http://localhost:3000/', '_self');}}>Logout</a></li>
                           </ul>
-                        </li>
+                        </li> */}
                       </>
                         : 
                         <>
                           <li className="nav-item navloginContiner">
                             <span className="nav-link"><a className='navlogin' href="/login">Log in</a></span>
                           </li>
-                          <li className="nav-item">
+                          <li className="nav-item navSignUpContiner">
                             <a type="button" className="btn btn-primary" href="/signup"><span className='navSignUp'>Sign up</span></a>
                             {/* onClick={() => {setShowNavbar(false)}} */}
                           </li>
+                          <div className='logInSignUpBtnContainer'>
+                            <li className="nav-item">
+                              <span className="nav-link"><a className='navlogin' href="/login">Log in</a></span>
+                            </li>
+                            <li className="nav-item">
+                              <a type="button" className="btn btn-primary" href="/signup"><span className='navSignUp'>Sign up</span></a>
+                              {/* onClick={() => {setShowNavbar(false)}} */}
+                            </li>
+                          </div>
                         </>
                       }
                           

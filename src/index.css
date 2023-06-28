@@ -30,16 +30,24 @@ code {
   margin-right: 10px;
 }
 
+.navbar-brand{
+  display: flex;
+  align-items: center;
+}
+
 .logoName{
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 900;
-  font-size: 18px;
+  font-size: 23px;
   line-height: 21px;
   /* identical to box height */
 
+  color: #333
+}
 
-  color: #000000;
+.logoNameHighlight{
+  color: #D83742;
 }
 
 .nav-item{
@@ -56,6 +64,10 @@ code {
   color: #ffffff;
 }
 
+.logInSignUpBtnContainer{
+  display: none;
+}
+
 .userImageProfileNavbar{
   width: 40px;
   height: 40x;
@@ -65,10 +77,10 @@ code {
 }
 
 .userNameDashboardNavbar{
-  font-family: 'Roboto';
+  font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 23px;
 }
 /* end Navbar */
@@ -295,12 +307,13 @@ code {
 .navbarRecipesDashboard-inner{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
 }
 
 .searchBarDashboard{
   /* flex: 1.6; */
-  /* background-color: #F9ED32; */
+  /* background-color: #32c4f9; */
   display: flex;
   align-items: center;
   width: 50%;
@@ -322,8 +335,7 @@ code {
   height: 100%;
   border: 1.5px solid rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  margin-left: -45px;
-  margin-top: 10px;
+  margin-left: -40px;
 }
 
 .btnDividerContainer{
@@ -352,7 +364,6 @@ code {
 
 .form-control{
   font-family:'Poppins';
-  margin-bottom: 10px;
 }
 
 /* Login */
@@ -401,17 +412,18 @@ code {
 .loginContainerText{
   font-family: 'Poppins';
   font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
+  font-weight: 700;
+  font-size: 25px;
   line-height: 100%;
   /* identical to box height, or 28px */
 
   display: flex;
   align-items: center;
+  text-align: center;
 
   /* text/primary */
 
-  color: #101012;
+  color: #333333;
 }
 
 .textFields{
@@ -517,7 +529,7 @@ code {
 
   /* text/primary */
 
-  color: #101012;
+  color: #333333;
 }
 
 .signUpLabel{
@@ -1016,12 +1028,16 @@ code {
 
 .storyPopUpUserImageContainer{
   margin-right: 10px;
+  height: 55px;
+  width: 55px;
+  border: 0.5px solid #b0b0b0;
+  border-radius: 100%;
+  overflow: hidden;
 }
 
 .storyPopUpUserImage{
-  height: 55px;
-  border-radius: 100%;
-  border: 0.5px solid #b0b0b0;
+  height: 100%;
+  
 }
 
 .storyPopUpUserDetailsContainer{
@@ -1129,3 +1145,171 @@ code {
 }
 
 /* end Story Popup */
+
+ /* small screen */
+ @media screen and (max-width: 1200px){
+  /* hero section */
+  .heroImageContainer{
+    display: none;
+  }
+
+  .heroHeadlinesInner{
+    text-align: center;
+  }
+
+  .buttonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #0bf832; */
+    /* width: 100%; */
+    width: 100%;
+  }
+
+  .buttonContainer-inner{
+    width: 100%;
+  }
+  /* end hero section */
+
+  /* User Dashboard */
+  .recipeContainer{
+    transition: 0.5s ease-in-out;
+    width: 290px;
+    height: 412px;
+    margin: 0 5px;
+    margin-bottom: 20px;
+  }
+  /* end User Dashboard */
+
+}
+/* end small screen */
+
+/* Tablet */
+@media screen and (max-width: 992px) {
+
+  /* Navbar */
+  .userDropdownMenu{
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+  }
+
+  /* end Navbar */
+
+  .navloginContiner{
+    display: none;
+  }
+
+  .navSignUpContiner{
+    display: none;
+  }
+
+  .logInSignUpBtnContainer{
+    display: flex;
+  }
+  .logInSignUpBtnContainer-inner{
+    
+  }
+
+  /* User Dashboard */
+  .headerMealPlanRecipe{
+    font-size: 26px;
+    line-height: 30px;
+  }
+
+  .searchBarDashboard{
+    width: 40%;
+  }
+
+  .recipeContainer{
+    transition: 0.5s ease-in-out;
+    width: 320px;
+    height: 412px;
+    margin: 0 5px;
+    margin-bottom: 20px;
+  }
+
+  .RecipeDashboardContainer{
+    justify-content: space-around;
+  }
+    /* end User Dashboard */
+}
+/* end Tablet */
+
+/* mobile */
+@media screen and (max-width: 580px) {
+
+  /* Navbar */
+  .userNameDashboardNavbar{
+    display: none;
+  }
+  /* end Navbar */
+
+  .headline{
+    font-size: 40px;
+    line-height: 49px;
+    margin-bottom: 10px;
+  }
+
+  .subHeadline{
+    font-size: 15px;
+    line-height: 25px;
+  }
+
+  .footer span{
+    font-size: 10px;
+  }
+
+  /* log in */
+
+  .logInCard{
+    padding: 40px 10px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+    width: 450px;
+  }
+
+  .loginContainerText{
+    font-size: 22px;
+    line-height: 100%;
+  }
+
+  /* endlog in */
+
+  /* sign up */
+  .signUpContainer-inner{
+    width: 100%;
+    /* background-color: #44C4A1; */
+  }
+
+  .createAnAccount{
+    font-size: 22px;
+    text-align: center;
+  }
+
+  /* end sign up */
+
+  /* User Dashboard */
+  .navbarMealPlanDashboard{
+    height: 50px;
+  }
+
+  .navbarRecipesDashboard{
+    margin: 20px 0;
+  }
+
+  .navbarRecipesDashboard-inner{
+    flex-direction: column;
+    
+  }
+
+  .headerMealPlanRecipe{
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  .searchBarDashboard{
+    width: 100%;
+  }
+  /* end User Dashboard */
+
+}
