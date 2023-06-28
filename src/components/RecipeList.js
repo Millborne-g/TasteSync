@@ -22,9 +22,53 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
     const npage = Math.ceil(listRecipe.length/recordsPerPage);
     const numbers = [...Array(npage + 1).keys()].slice(1);
 
-    const [getDataCounter, setGetDataCouter] = useState(0);
-
     useEffect(()=>{
+        let commonIngredients = [
+            'Salt',
+            'Pepper',
+            'Olive oil',
+            'Garlic',
+            'Onion',
+            'Tomato',
+            'Chicken',
+            'Beef',
+            'Rice',
+            'Pasta'
+        ];
+      let randomIngred = Math.floor(Math.random() * commonIngredients.length);
+    if(clickSearch===true){
+        if(searchInput !==''){
+            setListRecipe([]);
+            setCurrentPage(1);
+            fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${searchInput}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
+            .then((response) => response.json())
+            .then((data) =>{
+                setListRecipe(data.hits);
+                
+            }).catch(error => {
+                console.log('no data')
+              });
+              setClickSearch(false);
+        } 
+        else if(searchInput === ''){
+            setListRecipe([]);
+            fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${commonIngredients[randomIngred]}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
+            .then((response) => response.json())
+            .then((data) =>{
+                setListRecipe(data.hits);
+                
+            }).catch(error => {
+                console.log('no data')
+              });
+              setClickSearch(false);
+        } else{
+            setListRecipe([]);
+        }
+    } 
+
+    },[clickSearch]);
+
+    useEffect(() =>{
         let commonIngredients = [
             'Salt',
             'Pepper',
@@ -39,69 +83,15 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
         ];
             
       let randomIngred = Math.floor(Math.random() * commonIngredients.length);
-    if(clickSearch===true){
-        if(searchInput){
-            setListRecipe([]);
-            setCurrentPage(1);
-            fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${searchInput}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
-            .then((response) => response.json())
-            .then((data) =>{
-                data.hits.forEach(element => {
-                    // console.log(element.recipe)
-                    setRecipeName(element.recipe.label);
-                    let liked = true
-                    setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
-                });
-                // setListRecipe((oldArray) => [...oldArray,])
-            }).catch(error => {
-                console.log('no data')
-              });
-            setClickSearch(false);
-        } 
-        else if(!searchInput){
-            setListRecipe([]);
-            fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${commonIngredients[randomIngred]}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
-            .then((response) => response.json())
-            .then((data) =>{
-                // console.log(data.hits)
-
-                data.hits.forEach(element => {
-                    // console.log(element.recipe.url)
-                    setRecipeName(element.recipe.label);
-                    let liked = true
-                    setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
-                    
-                });
-                // setListRecipe((oldArray) => [...oldArray,])
-                setClickSearch(false);
-            }).catch(error => {
-                console.log('no data')
-              });
-        } else{
-            setListRecipe([]);
-        }
-    } else{
-        //ga double
         setListRecipe([]);
         fetch(`https://api.edamam.com/api/recipes/v2?type=public&q=${commonIngredients[randomIngred]}&app_id=e7e02e83&app_key=%20da551a9f6b2596058ec897a1dd5949ab%09`)
         .then((response) => response.json())
         .then((data) =>{
-            // console.log(data.hits)
-            data.hits.forEach(element => {
-                // console.log(element.recipe.url)
-                setListRecipe((oldArray) => [...oldArray, [element.recipe.label, element.recipe.mealType, element.recipe.image, element.recipe.source, element.recipe.ingredientLines, element.recipe.uri, element.recipe.url, element.recipe.healthLabels]]);
-            });
-            // setListRecipe((oldArray) => [...oldArray,])
-            setClickSearch(false);
+            setListRecipe(data.hits);
         }).catch(error => {
             console.log('no data');
         });
-    
-        
-
-    }
-
-    },[clickSearch]);
+    },[]);
 
     const openRecipeModal = (recipeName,recipeImage,recipeSource,recipeIngredients,recipeUri,recipeUrl,recipeHealthBenifits) =>{
         handleRecipeShow(); 
@@ -134,7 +124,7 @@ function Recipe({searchInput, setRecipeNameDashboard, handleRecipeShow, setRecip
     <>
     <div className='RecipeDashboardContainer'>
       {records.map((recipe, index)=>(
-            <RecipeCard key={index} recipeName={recipe[0]} recipeNumberIngredients={recipe[1]} recipeImage={recipe[2]} recipeSource={recipe[3]} recipeIngredients={recipe[4]} recipeUri={recipe[5]} recipeUrl={recipe[6]} recipeHealthBenifits={recipe[7]} openRecipeModal={openRecipeModal}/>
+            <RecipeCard key={index} recipeName={recipe.recipe.label} recipeNumberIngredients={recipe.recipe.mealType} recipeImage={recipe.recipe.image} recipeSource={recipe.recipe.source} recipeIngredients={recipe.recipe.ingredientLines} recipeUri={recipe.recipe.uri} recipeUrl={recipe.recipe.url} recipeHealthBenifits={recipe.recipe.healthLabels} openRecipeModal={openRecipeModal}/>
         ))
       }
     </div>

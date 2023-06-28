@@ -10,6 +10,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import Navbar from '../components/Navbar';
 import PeopleStory from '../components/PeopleStory';
 import RecipeList from '../components/RecipeList';
+import RecipeListCopy from '../components/RecipeListCopy';
 import { Dropdown, Button, Modal  } from 'react-bootstrap';
 import {db} from '../firebase';
 import {uid} from 'uid'; 
@@ -47,12 +48,16 @@ function Home() {
         // //write
         setClickLike(!clickLike);
         let likedRecipeId = recipeIdLinkDashboard.split('#')[1];
+        let searchInputContent = ''
+        if(searchInput === ''){
+            searchInputContent='n/a'
+        }
         if(!clickLike){
             set(ref(db, `userLikedRecipe/${userID}/${likedRecipeId}`), {
                 likedRecipeId,
                 recipeNameDashboard,
                 recipeIdLinkDashboard,
-                searchInput,
+                searchInput : searchInputContent,
                 recipeImageDashboard,
                 recipeNameDashboard,
                 recipeAuthorDashboard,
@@ -68,7 +73,6 @@ function Home() {
 
     }
     useEffect(()=>{
-        
         if(recipeIdLinkDashboard){
             // console.log(recipeIdLinkDashboard)
             let likedRecipeId = recipeIdLinkDashboard.split('#')[1];
@@ -114,6 +118,7 @@ function Home() {
                 </div>
             </div>
             <RecipeList searchInput={searchInput} setRecipeNameDashboard={setRecipeNameDashboard} handleRecipeShow={handleRecipeShow} setRecipeImageDashboard={setRecipeImageDashboard} setRecipeAuthorDashboard={setRecipeAuthorDashboard} setRecipeIngredientsDashboard={setRecipeIngredientsDashboard} setRecipeIdLinkDashboard={setRecipeIdLinkDashboard} setRecipeURLDashboard={setRecipeURLDashboard} setRecipeHealthBenifitsDashboard={setRecipeHealthBenifitsDashboard} clickSearch={clickSearch} setClickSearch={setClickSearch}/>
+            {/* <RecipeListCopy/> */}
         </div>
         <Modal show={showRecipeModal} onHide={handleRecipeClose} centered>
             <Modal.Header closeButton>

@@ -25,9 +25,7 @@ function PeopleStory() {
 
   const [getDataCounter, setGetDataCouter] = useState(0);
 
-  const getStoryData = () =>{
-      // Perform actions for returning user
-      console.log('Returning user'+getDataCounter);  
+  const getStoryData = () =>{ 
 
       if(getDataCounter>0){
         const currentDate = new Date();
@@ -48,7 +46,6 @@ function PeopleStory() {
             setStoryList([]);
             const reversedData = Object.values(data).reverse();
             reversedData.forEach((story) => {
-              console.log('storyID is here '+story.userID);
               const dateToday = new Intl.DateTimeFormat('en-US', options).format(currentDate);
               if (dateToday !== story.formattedNextDate) {
                 setStoryList((oldArray) => [
