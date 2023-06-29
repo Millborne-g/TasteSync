@@ -390,7 +390,7 @@ function Profile() {
                         <form>
                             <label htmlFor="createLinkImage" className="form-label userCreateLinkNameLabel">Thumbnail</label>
                             <input type="file" className="form-control" id="createLinkImage" accept="image/png, image/gif, image/jpeg" onChange={(e) => handleFileChange(e)}/>
-                            <label htmlFor="floatingTextarea">Caption</label>
+                            <label className="form-label" htmlFor="floatingTextarea">Caption</label>
                             <textarea className="form-control" placeholder="Leave a caption here" id="floatingTextarea" value={caption} onChange={(e)=>{setCaption(e.target.value)}}></textarea> 
                         </form>
                     </Modal.Body>
