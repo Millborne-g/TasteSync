@@ -213,7 +213,7 @@ function Home() {
                     </div>
                 </div>
                 <div className="col heroImageContainer" >
-                    <div className="heroImageContainerInner">
+                    <div className="heroImageContainerInner" data-aos="fade" data-aos-delay="1900">
                         <img className='heroImage' src={heroImage} />
                         <img className='card1' data-aos="fade-up" data-aos-delay="2300" src={card1}/>
                         <img className='card2' data-aos="fade-up" data-aos-delay="2600" src={card2}/>
