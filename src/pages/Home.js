@@ -224,7 +224,7 @@ function Home() {
         </div>
 
         <div className='footer'>
-            <span> © 2023 TasteSync | <a className='portfolioLink' href="https://millborneportfolio.vercel.app/" target="_blank">Millborne Galamiton.</a> All rights reserved.</span>
+            <span> © 2024 TasteSync | <a className='portfolioLink' href="https://millborneportfolio.vercel.app/" target="_blank">Millborne Galamiton.</a> All rights reserved.</span>
         </div>
     </section>
     
