@@ -28,6 +28,7 @@ code {
 
 .logoImg{
   margin-right: 10px;
+  height: 50px;
 }
 
 .navbar-brand{
@@ -401,10 +402,6 @@ code {
   padding: 40px 0;
   margin-bottom: 55px;
   background-color: #ffff;
-}
-
-.logoImg{
-  height: 50px;
 }
 
 .loginCointainer{
@@ -1266,6 +1263,15 @@ code {
   /* Navbar */
   .userNameDashboardNavbar{
     display: none;
+  }
+
+  .logoImg{
+    margin-right: 10px;
+    height: 30px;
+  }
+
+  .logoName{
+    font-size: 18px;
   }
   /* end Navbar */
 
